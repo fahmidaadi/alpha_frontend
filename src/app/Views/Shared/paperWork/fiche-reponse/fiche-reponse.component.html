@@ -1,0 +1,151 @@
+<div class="container" id="pdf-content">
+    <div id="images">
+        <img src="./assets/isetrlogo.jpg" />
+        <img src="./assets/republique-tunisienne.png" />
+    </div>
+    <header>
+        <div id="upper-titles">
+            <p>République Tunisienne</p>
+            <p>
+                Ministére de l'Enseignement Superieur et de la recherche Scientifique
+            </p>
+            <p>Direction Générale des Etudes Technologiques</p>
+            <p>Institut Supérieur des Etudes Technologiques de Radés</p>
+        </div>
+
+        <hr />
+        <p id="today-date">
+        </p>
+        
+
+        <div id="title-text">
+            <h1><strong>Fiche Réponse</strong></h1>
+            <p>A remettre a l'étudiant</p>
+            <p>
+                ou a retourner a l'ISET de Rades par courrier ou par fax (+216 71 442
+                322)
+            </p>
+        </div>
+    </header>
+
+    <section class="content">
+        <div id="organisme-data">
+            <p>
+                <strong><u>Identification de l'organisme d'acceuil :</u></strong>
+            </p>
+
+            <div id="organisme-data-table">
+
+                <p>
+                    <strong> Organisme :</strong> NOM-ORGANISME
+                </p>
+
+                <p>
+                    <strong>Secteur D'activité :</strong> SECTEUR-DACTIVITE-ORGANISME
+                </p>
+
+                <p>
+                    <strong> Adresse :</strong> ADRESSE
+                </p>
+
+                <p>
+                    <strong>Site Web :</strong> WEBSITE-ORGANISME
+                </p>
+
+                <p>
+                    <strong>Responsable :</strong> RESPONSABLE-ORGANISME
+                </p>
+
+                <p>
+                    <strong>Tél :</strong> TEL-ORGANISME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <strong>Fax :</strong> FAX-ORGANISME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <strong>E-mail :</strong> EMAIL-ORGANISME
+                </p>
+
+            </div>
+        </div>
+
+
+        <div id="stage-data">
+            <p>
+                <strong>Stage accordé :</strong> du DATEBEGIN-STAGE au DATEFIN-STAGE
+            </p>
+
+            <div id="organisme-data-table">
+
+                <p>
+                    <strong> Responsable du stage (a contacter perndant la periode de stage) :</strong>
+                </p>
+
+                <p>
+                    RESPONSABLE-STAGE
+                </p>
+
+                <p>
+                    <strong>Tél :</strong> TEL-ORGANISME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <strong>Fax :</strong> FAX-ORGANISME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <strong>E-mail :</strong> EMAIL-ORGANISME
+                </p>
+
+            </div>
+        </div>
+
+        <div id="etudiant-data">
+            <p>
+                <strong><u>Etudiant bénéficaire du stage :</u></strong>
+            </p>
+
+            <div id="organisme-data-table">
+                <table>
+                    <tr>
+                        <td><strong>Nom et Prénom :</strong></td>
+                        <td style="padding-left: 20px;">{{ internship?.student?.name }}</td>
+                        <td style="padding-left: 100px;"><strong>CIN :</strong></td>
+                        <td style="padding-left: 20px;">{{ internship?.student?.cin }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tél :</strong></td>
+                        <td style="padding-left: 20px;">{{ internship?.student?.phone_nbr }}</td>
+                        <td style="padding-left: 100px;"><strong>E-mail :</strong></td>
+                        <td style="padding-left: 20px;">{{ internship?.student?.email }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Département :</strong></td>
+                        <td style="padding-left: 20px;">{{ internship?.student?.classRoom?.trainingType?.training?.department?.lib_departement_fr }}</td>
+                        <td style="padding-left: 100px;"><strong>Classe :</strong></td>
+                        <td style="padding-left: 20px;" >{{ internship?.student?.classRoom?.lib_classe_fr }}</td>
+                    </tr>
+                </table>
+                
+            </div>
+            
+        </div>
+        <p id="signature">A ISET Radés &nbsp; Le : {{formattedDate}} <strong id="cachet">Cachet & Signature</strong></p>
+
+        <p id="nb">
+            <strong>NB:</strong> Tout étudiant régulierement inscrit, est assuré
+            (Seulement si le stage est effectué en Tunisie) par la mutuelle des
+            accidents scolaires et universitaires (M.A.S.U) jusqu'au 30 juin
+            ACTUALYEAR, au-dela de cette date, il doit se faire assurer.
+        </p>
+    </section>
+
+    <footer>
+        <hr />
+        <p>
+            Rue de Jérusalem -BP 172, 2098 Radés Médina &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; &nbsp; Tél : +216 71 460-317 Fax : +216 71 442-322
+        </p>
+        <p>
+            Site Web de l'ISET Radés : isetr.rnu.tn &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            &nbsp; Email : des.iset.rades&#64;gmail.com
+        </p>
+    </footer>
+</div>
+
+<button (click)="exportToPDF()" class="download-button">
+    <div class="PDF"><svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" height="20" width="20" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line y2="13" x2="8" y1="13" x1="16"></line><line y2="17" x2="8" y1="17" x1="16"></line><polyline points="10 9 9 9 8 9"></polyline></svg> PDF</div>
+    <div class="download">
+      <svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" height="24" width="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line y2="3" x2="12" y1="15" x1="12"></line></svg>
+    </div>
+  </button>

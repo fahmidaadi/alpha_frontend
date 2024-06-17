@@ -1,0 +1,33 @@
+/* Table styles */
+table {
+    width: 1000px;
+    border-collapse: collapse;
+  }
+  
+  /* Table header styles */
+  thead th {
+    background-color: #4d4d4d; /* Header background color */
+    color: #fff; /* Header text color */
+    font-weight: bold;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Table row styles */
+  tbody tr {
+    border-bottom: 1px solid #ddd; /* Border between rows */
+  }
+  
+  /* Table cell styles */
+  td {
+    padding: 8px;
+  }
+  
+  /* Hover effect on rows */
+  tbody tr:hover {
+    background-color: #f5f5f5; /* Background color on hover */
+  }
+  
+  .row-border hover{
+    position: fixed;
+  }

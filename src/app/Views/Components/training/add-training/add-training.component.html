@@ -1,0 +1,40 @@
+
+<div class="container">
+    <form (ngSubmit)="onSubmit(addTrainingForm)" #addTrainingForm="ngForm">
+      <div class="row">
+        <h4>Ajouter une Formation</h4>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Code du Formation" name="code" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Code du Formation est requise'" *ngIf="addTrainingForm.controls['code'] && addTrainingForm.controls['code'].errors?.['required']" class="error-message"></app-ui-message>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Nom du Formation" name="name" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Nom du Formation est requise'" *ngIf="addTrainingForm.controls['name'] && addTrainingForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
+
+      </div>
+      <div class="row">
+        <div class="col-half">
+          
+        </div>
+        <div class="col-half">
+          <div class="input-group">
+           
+  
+            
+            <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addTrainingForm.invalid"></app-confirm-button>
+  
+            
+            <app-ui-message [message]="'Ajout avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+    
+            <app-ui-message [message]="'erreur d ajout'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+  
+  
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

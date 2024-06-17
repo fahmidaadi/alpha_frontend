@@ -1,0 +1,47 @@
+
+<div class="container">
+    <form (ngSubmit)="onSubmit(addClassRoomTypeForm)" #addClassRoomTypeForm="ngForm">
+      <div class="row">
+        <h4>Ajouter un Classe</h4>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Code Classe" name="code" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Code niveau du Formation est requise'" *ngIf="addClassRoomTypeForm.controls['code'] && addClassRoomTypeForm.controls['code'].errors?.['required']" class="error-message"></app-ui-message>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Nom de Class" name="name" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Nom de Classe'" *ngIf="addClassRoomTypeForm.controls['name'] && addClassRoomTypeForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
+        <div class="input-group input-group-icon">
+            <select name="trainingType" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedTrainingType of loadedTrainingTypes" [value]="loadedTrainingType.niveau_formation_id">{{ loadedTrainingType.code_niveau_formation }}</option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'Le Niveau de Formation est requise'"
+            *ngIf="addClassRoomTypeForm.controls['training'] && addClassRoomTypeForm.controls['training'].errors?.['required']"
+            class="error-message"></app-ui-message>
+      </div>
+      <div class="row">
+        <div class="col-half">
+          
+        </div>
+        <div class="col-half">
+          <div class="input-group">
+           
+  
+            
+            <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addClassRoomTypeForm.invalid"></app-confirm-button>
+   
+            <app-ui-message [message]="'Ajout avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+    
+            <app-ui-message [message]="'erreur d ajout'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+  
+  
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

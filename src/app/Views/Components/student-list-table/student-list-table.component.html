@@ -1,0 +1,124 @@
+<div>
+  <h2 class="title"  [hidden]="!showUpdateForm">
+    Modifier <strong> {{ selectedStudent?.name }} </strong>
+  </h2>
+  <div [hidden]="showUpdateForm">
+    <h2 class="title">Liste des stagaires</h2>
+
+    <div class="file-upload-container">
+      <app-add-button class="AddStudent" (click)="AddStudent()"></app-add-button>
+
+      <!-- Button to import Excel file -->
+      <button class="btn-upload" (click)="fileInput.click()">
+        Ajouter via un fichier Excel
+      </button>
+      <input id="fileInput" type="file" #fileInput (change)="onFileChange($event)" style="display: none" />
+
+      <!-- Display the name of the selected file or error message -->
+      <div *ngIf="fileName" class="file-info">
+        <span class="file-name">Fichier séléctionné : {{ fileName }}</span>
+        <div class="confirmation-buttons">
+          <button class="btn-confirm" (click)="confirmUpload()">Confirm</button>
+          <button class="btn-cancel" (click)="cancelUpload()">Cancel</button>
+          <select name="classRoom" ngModel [(ngModel)]="selectedClassRoomId" [required]="true" class="form-control">
+            <option *ngFor="let loadedClassRoom of loadedClassRooms" [value]="loadedClassRoom.classe_id">{{ loadedClassRoom.lib_classe_fr }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Display error message if file type is not supported -->
+      <div *ngIf="fileError" class="file-error">
+        {{ fileError }}
+      </div>
+    </div>
+
+    <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+  </div>
+
+  
+
+<div [hidden]="!showUpdateForm">
+
+  <div class="container">
+    <form #updateStudentForm="ngForm" (ngSubmit)="onFormSubmit(updateStudentForm)"  >
+      <div class="row">
+        <h3 style="text-align: center;">Données du  Stagaire</h3>
+
+
+
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Code d'identinté Nationale de stagaire" name="cin" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'CIN du stagaire est requis'" *ngIf="updateStudentForm.controls['cin'] && updateStudentForm.controls['cin'].errors?.['required']" class="error-message"></app-ui-message>
+        
+  
+      
+      <div class="input-group input-group-icon">
+        <input type="text" placeholder="Nom du stagaire" name="name" ngModel [required]="true"/>
+        <div class="input-icon"><i class="fa fa-user"></i></div>
+      </div>
+      <app-ui-message [message]="'Nom du stagaire est requis'" *ngIf="updateStudentForm.controls['name'] && updateStudentForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
+      
+      <div class="input-group input-group-icon">
+        <input type="email" placeholder="Email" name="email" ngModel [required]="true"/>
+        <div class="input-icon"><i class="fa fa-envelope"></i></div>
+      </div>
+      <app-ui-message [message]="'Email est requis'" *ngIf="updateStudentForm.controls['email'] && updateStudentForm.controls['email'].errors?.['required']" class="error-message"></app-ui-message>
+      
+
+      <div class="input-group input-group-icon">
+        <select  name="classe" ngModel [required]="true" class="form-control">
+          <option *ngFor="let loadedClassRoom of loadedClassRooms" [value]="loadedClassRoom.classe_id">{{ loadedClassRoom.code_classe }}</option>
+        </select>
+        <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+      </div>
+      <app-ui-message [message]="'Classe est requis'"
+        *ngIf="updateStudentForm.controls['classe'] && updateStudentForm.controls['classe'].errors?.['required']"
+        class="error-message"></app-ui-message>
+
+
+
+    </div>
+    <div class="row">
+      <div class="col-half">
+        <h4>Date de Naissance</h4>
+        <div class="input-group">
+          <div class="col-third">
+            <input type="text" placeholder="DD" name="day" [(ngModel)]="day" [required]="true"/>
+
+          </div>
+          <div class="col-third">
+            <input type="text" placeholder="MM" name="month" [(ngModel)]="month"[required]="true" />
+
+          </div>
+          <div class="col-third">
+            <input type="text" placeholder="YYYY" name="year" [(ngModel)]="year" [required]="true"/>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-half">
+        <h4>Numéro de Téléphone</h4>
+        <div class="input-group">
+          <input id="gender-male" placeholder="Numéro de Téléphone" type="text" name="phone_nbr"  ngModel [required]="true"/>
+
+
+          
+          <app-confirm-button type="submit" class="app-confirm-button" [disabled]="updateStudentForm.invalid"></app-confirm-button>
+
+          
+          <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+  
+          <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+
+
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+</div>
+
+</div>

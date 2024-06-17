@@ -1,0 +1,33 @@
+<div class="navbar">
+  <div class="button-container">
+    <div class="nav-header">
+      <span class="logo-name">αlpha</span>
+    </div>
+  </div>
+  
+  <div class="logo-container">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZq4gl1OqJcPM9A3U1vydGJkf6j1Eoegi7bA&s" alt="Logo" class="logo-image">
+  </div>
+
+  
+
+  <div class="user-info">
+    
+    <div class="notification_container" color="primary">
+      <button class="notification" mat-icon-button   >
+        <span class="spacer"></span>
+        <mat-icon [matBadge]="3" matBadgeColor="warn" matBadgeOverlap="false">notifications</mat-icon>
+      </button>
+    </div>
+    <span class="username">{{ username  ?? 'Loading...' }}</span>
+    <img src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/195262990/original/11e27b7f562dd5f49e7e1aeeb5993218661d56f0/photoshop-your-pictures-by-demand.jpg" alt="Profile Image" class="profile-icon" />
+    
+    <div class="logout-container">
+      <button mat-icon-button    class="logout" (click)="onSignOut()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span class="tooltip-text">Logout</span>
+      </button>
+    </div>
+    
+  </div>
+</div>

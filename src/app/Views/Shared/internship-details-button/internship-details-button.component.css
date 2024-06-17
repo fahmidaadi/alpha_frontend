@@ -1,0 +1,39 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   text-align: center;
+    height:  2em;
+    gap: 15px;
+    background-color: #4d4d4d;
+    outline: 2px #4d4d4d solid;
+    outline-offset: -3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 400ms;
+  }
+  
+  .button .text {
+    padding-top: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 1em;
+    transition: 400ms;
+  }
+  
+  .button svg path {
+    transition: 400ms;
+  }
+  
+  .button:hover {
+    background-color: transparent;
+  }
+  
+  .button:hover .text {
+    color: #4d4d4d  ;
+  }
+  
+  .button:hover svg path {
+    fill: #007ACC;
+  }

@@ -1,0 +1,75 @@
+<div>
+    <h2 style="text-align: center" [hidden]="!showUpdateForm">
+      Modifier {{ selectedClassRoom?.lib_classe_fr }}
+    </h2>
+    
+    <div [hidden]="showUpdateForm">
+      <h2>Liste des Classes</h2>
+      <app-add-button class="AddTraining" (click)="onAddTrainingClick()"></app-add-button>
+      <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+    </div>
+  
+    <div [hidden]="!showUpdateForm" >
+      <div class="container">
+        <form #updateClassRoomForm="ngForm" (ngSubmit)="onFormSubmit(updateClassRoomForm)">
+          <div class="row">
+            <h4>Modifier un Classe </h4>
+  
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Code de Classe" name="code" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Code de Classe est requis'"
+              *ngIf="updateClassRoomForm.controls['code'] && updateClassRoomForm.controls['code'].errors?.['required']"
+              class="error-message"></app-ui-message>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Non de Classe" name="name" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Nom de Classe est requis'"
+              *ngIf="updateClassRoomForm.controls['name'] && updateClassRoomForm.controls['name'].errors?.['required']"
+              class="error-message"></app-ui-message>
+  
+            <!-- Updated part -->
+            <div class="input-group input-group-icon">
+              <select name="trainingType" ngModel [required]="true" class="form-control">
+                <option *ngFor="let loadedTrainingType of loadedTrainingTypes" [value]="loadedTrainingType.niveau_formation_id">{{ loadedTrainingType.lib_niveau_formation_fr+ '   ' + loadedTrainingType.training.lib_formation_fr }}</option>
+              </select>
+              <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+            </div>
+            <app-ui-message [message]="'Type de Stage est requise'"
+              *ngIf="updateClassRoomForm.controls['trainingType'] && updateClassRoomForm.controls['trainingType'].errors?.['required']"
+              class="error-message"></app-ui-message>
+            <!-- End of Updated part -->
+  
+          </div>
+  
+          <div class="row">
+            <div class="col-half">
+              <div class="input-group">
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+              </div>
+            </div>
+            <div class="col-half">
+              <div class="input-group">
+                <app-confirm-button type="submit" class="app-confirm-button"
+                  [disabled]="updateClassRoomForm.invalid"></app-confirm-button>
+  
+                <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                  class="success-message"></app-ui-message>
+  
+                <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                  class="error-message"></app-ui-message>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,32 @@
+/* Popup message styling */
+.popup-message {
+  position: fixed;
+  top: 105px; /* Distance from the top */
+  right: 20px; /* Distance from the right */
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 1000;
+  animation: fade-in-out 5s;
+  transition: opacity 0.5s ease-in-out; /* Smooth appearance */
+}
+
+/* Success message background color */
+.popup-message.success {
+  background-color: #4caf50; /* Green color for success */
+  color: white;
+}
+
+/* Error message background color */
+.popup-message.error {
+  background-color: #f44336; /* Red color for error */
+  color: white;
+}
+
+/* Animation for fading in and out */
+@keyframes fade-in-out {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}

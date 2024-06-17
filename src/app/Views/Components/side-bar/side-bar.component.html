@@ -1,0 +1,128 @@
+
+
+  <div class="sidebar">
+    <nav class="main-menu">
+      <ul>
+        <li>
+          <a (click)="goToDashboard()">
+            <mat-icon>donut_large</mat-icon>        
+            <span class="nav-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="has-subnav">
+          <a (click)="goToFileUploader()">
+            <mat-icon>note_add</mat-icon>        
+            <span class="nav-text">Ajout de stage par image</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToInternshipList()">
+            <mat-icon>assignment</mat-icon>
+            <span class="nav-text"> Stages</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToStudentList()">
+            <mat-icon>account_box</mat-icon>
+            <span class="nav-text"> Stagiaires</span>
+          </a>
+        </li>
+    <li class="has-subnav" [class.open]="isSubMenuOpen">
+      <a (click)="toggleSettingsSubMenu()">
+        <mat-icon>settings</mat-icon>
+        <span class="nav-text">Paramétres</span>
+        <mat-icon class="arrow">expand_more</mat-icon>
+      </a>
+      <ul *ngIf="isSubMenuOpen" class="sub-menu">
+        <li>
+          <a (click)="goToTraining()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Formations</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToTrainingTypes()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text">Niveau de Formations</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToInternshipTypeList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Types des Stages</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToClassList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Classes</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToDepartmentList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Départements</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    
+    
+    
+    
+    <li class="has-subnav" [class.open]="isdocumentSubMenuOpen">
+      <a (click)="toggleDocumentsSubMenu()">
+        <mat-icon>library_books</mat-icon>
+        <span class="nav-text">Documents de stage</span>
+        <mat-icon class="arrow">expand_more</mat-icon>
+      </a>
+      <ul *ngIf="isdocumentSubMenuOpen" class="sub-menu">
+        <li>
+          <a (click)="goToDemandeDeStage()">
+            <mat-icon> notes</mat-icon>
+            <span class="nav-text">Demande de Stage</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToLettreAffectation()">
+            <mat-icon> notes</mat-icon>        
+            <span class="nav-text">Lettre D'affectation</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToFicheReponse()">
+            <mat-icon> notes</mat-icon>       
+            <span class="nav-text">Fiche Réponse</span>
+          </a>
+        </li>
+        
+      </ul>
+    </li>
+    
+    
+    <li class="has-subnav" [class.open]="isSuperAdminSubMenuOpen">
+      <a (click)="toggleSuperAdminSubMenu()">
+        <mat-icon>verified_user</mat-icon>
+        <span class="nav-text">Super Admin</span>
+        <mat-icon class="arrow">expand_more</mat-icon>
+      </a>
+      <ul *ngIf="isSuperAdminSubMenuOpen" class="sub-menu">
+        <li>
+          <a (click)="goToUserList()">
+            <mat-icon>supervisor_account</mat-icon>
+            <span class="nav-text">Utlisateurs</span>
+          </a>
+        </li>
+        
+        
+      </ul>
+    </li>
+
+    
+    
+  </ul>
+  
+</nav>
+</div>
+
+

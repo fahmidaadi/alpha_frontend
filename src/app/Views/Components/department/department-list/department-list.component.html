@@ -1,0 +1,63 @@
+<div>
+  <h2 style="text-align: center" [hidden]="!showUpdateForm">
+    Modifier {{ selectedDepartment?.lib_departement_fr }}
+  </h2>
+  <div [hidden]="showUpdateForm">
+    <h2>Liste des Départments</h2>
+    <app-add-button class="AddTraining" (click)="AddDepartment()"></app-add-button>
+    <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+  </div>
+
+  <div [hidden]="!showUpdateForm">
+    <div class="container">
+      <form #updateDepartmentForm="ngForm" (ngSubmit)="onFormSubmit(updateDepartmentForm)">
+        <div class="row">
+          <h4>Modifier un Département</h4>
+
+          <div class="input-group input-group-icon">
+            <input type="text" placeholder="Code du Département" name="code" ngModel [required]="true" />
+            <div class="input-icon"><i class="fa fa-user"></i></div>
+          </div>
+          <app-ui-message [message]="'Code du Département est requis'"
+            *ngIf="updateDepartmentForm.controls['code'] && updateDepartmentForm.controls['code'].errors?.['required']"
+            class="error-message"></app-ui-message>
+          <div class="input-group input-group-icon">
+            <input type="text" placeholder="Nom du Département" name="name" ngModel [required]="true" />
+            <div class="input-icon"><i class="fa fa-user"></i></div>
+          </div>
+          <app-ui-message [message]="'Nom du Département est requis'"
+            *ngIf="updateDepartmentForm.controls['name'] && updateDepartmentForm.controls['name'].errors?.['required']"
+            class="error-message"></app-ui-message>
+        </div>
+
+        <div class="row">
+          <div class="col-half">
+            <div class="input-group">
+              <div class="col-third">
+              </div>
+              <div class="col-third">
+              </div>
+              <div class="col-third">
+              </div>
+            </div>
+          </div>
+          <div class="col-half">
+
+            <div class="input-group">
+
+
+              <app-confirm-button type="submit" class="app-confirm-button"
+                [disabled]="updateDepartmentForm.invalid"></app-confirm-button>
+
+              <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                class="success-message"></app-ui-message>
+
+              <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                class="error-message"></app-ui-message>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

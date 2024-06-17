@@ -1,0 +1,43 @@
+<div *ngIf="inspectedStudent" class="profile-container">
+  
+  <div class="profile-card">
+    <h2 >Détails du {{inspectedStudent.name}}</h2>
+    <img src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/195262990/original/11e27b7f562dd5f49e7e1aeeb5993218661d56f0/photoshop-your-pictures-by-demand.jpg" alt="Profile Image" class="profile-icon" />
+
+    <table>
+      <tbody>
+        <tr>
+          <th>CIN :</th>
+          <td>{{ inspectedStudent.cin }}</td>
+        </tr>
+        <tr>
+          <th>Nom et prénom :</th>
+          <td>{{ inspectedStudent.name }}</td>
+        </tr>
+        <tr>
+          <th>Classe :</th>
+          <td>{{ inspectedStudent.classRoom.code_classe }}</td>
+        </tr>
+        <tr>
+          <th>Date de Naissance :</th>
+          <td>{{ inspectedStudent.dte_naiss.split('T')[0] }}</td>
+        </tr>
+
+        <tr>
+          <th>Email :</th>
+          <td style="display: inline-block;">
+            {{ inspectedStudent.email }}
+              <button  class="email-button" (click)="sendEmail(inspectedStudent.email)">
+                <svg viewBox="0 0 8 6" class="bell" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m0 0h8v6h-8zm.75 .75v4.5h6.5v-4.5zM0 0l4 3 4-3v1l-4 3-4-3z"/>
+                </svg>
+                           </button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <a [href]="['/student-list']" routerLinkActive="router-link-active" class="button">Retour</a>
+  </div>
+</div>

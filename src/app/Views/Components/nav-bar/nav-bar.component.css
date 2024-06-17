@@ -1,0 +1,96 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  background-color: #3C5B6F;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.logo-name {
+  color: white;
+  font-size: 30px;
+  margin-left: 70%;
+}
+
+.logo-image {
+  width: 80px; /* Adjust the width for a bigger image */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  color: white;
+  margin-right: 10px;
+}
+
+.profile-icon {
+  height: 55px;
+  width: 55px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.logout {
+  
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  color: rgb(102, 0, 0);
+  margin: 0 0 0 10px;
+  position: relative;
+  cursor: pointer;
+  
+}
+
+/* Tooltip style */
+.tooltip-text {
+  visibility: hidden;
+  color: #fff;
+  text-align: center;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  font-size: 13px;
+  top: 85%;
+  left: 10%;
+}
+
+/* Arrow below the tooltip */
+.tooltip-text::after {
+  content: " ";
+  position:relative;
+  top: 100%;
+  left: 0%;
+  
+}
+
+.logout:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.logout:hover {
+  color: red;
+  transition: 0.5s ease-in-out;
+}
+
+
+.spacer {
+  flex: 1 1 auto;
+}
+.content {
+  padding: 20px;
+}
+.notification_container{
+  padding-right: 20px;
+  
+}

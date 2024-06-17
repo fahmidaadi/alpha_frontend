@@ -1,0 +1,15 @@
+
+
+<div   class="navbar" *ngIf="authService.isLoggedIn | async as isLoggedIn">
+    <app-nav-bar *ngIf="isLoggedIn" ></app-nav-bar>
+</div>
+  
+  <div  class="sidebar" *ngIf="authService.isLoggedIn| async as isLoggedIn">
+    <app-side-bar *ngIf="isLoggedIn" ></app-side-bar>
+</div>
+  
+  <div class="content" >
+    <app-popup-message></app-popup-message>
+    <router-outlet></router-outlet>
+
+</div>

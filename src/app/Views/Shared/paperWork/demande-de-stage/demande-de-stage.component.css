@@ -1,0 +1,175 @@
+/* CSS for demande-stage component */
+:host {
+    display: block;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    max-width: 1000px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family:sans-serif;
+   
+}
+
+
+
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 24px;
+    color:black;
+}
+
+header p {
+    font-size: 18px;
+    margin: 5px 0;
+    color: black;
+}
+
+.content {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color:black;
+}
+
+footer {
+    font-size: 12px;
+    color: black;
+    margin-top: 10%;
+
+}
+
+footer p {
+    margin: 5px 0 0 0;
+    text-align: center;
+    
+}
+hr {
+    border-width: 3px;
+}
+
+#nb{
+    margin-top: 13%;
+    text-align: justify;
+
+}
+
+#upper-titles p{
+font-size: 15px;
+font-weight: bold;
+
+}
+
+#today-date{
+    text-align: right;
+    font-size: 13px;
+    padding-bottom: 20px;
+    
+}
+
+#images {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+
+#images img {
+    max-width: 100px; 
+    max-height: 100px; 
+    margin: 0; 
+}
+
+#signature{
+    text-align:right ;
+    margin-top: 5%;
+    
+}
+#data{
+    margin: 3% 0 3% 0;
+}
+#data p {
+    font-size: 14px;
+}
+
+#texte p {
+    line-height: 2.5;
+    text-align: justify;
+}
+
+.download-button {
+    position:relative;
+    border-width: 0;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 4px;
+    z-index: 1;
+    margin-left: 45%;
+    margin-top: 2%;
+
+   }
+   
+   .download-button .PDF {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 40px;
+    padding: 0 10px;
+    border-radius: 4px;
+    z-index: 1;
+    background-color: #242a35;
+    border: solid 1px #e8e8e82d;
+    transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+   }
+   
+   .download-button:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+   }
+   
+   .download {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    margin: 0 auto;
+    z-index: -1;
+    border-radius: 4px;
+    transform: translateY(0%);
+    background-color: #01e056;
+    border: solid 1px #01e0572d;
+    transition: all .5s cubic-bezier(0.77, 0, 0.175, 1);
+   }
+   
+   .download-button:hover .download {
+    transform: translateY(100%)
+   }
+   
+   .download svg polyline,.download svg line {
+    animation: PDF 1s infinite;
+   }
+   
+   @keyframes PDF {
+    0% {
+     transform: translateY(0%);
+    }
+   
+    50% {
+     transform: translateY(-15%);
+    }
+   
+    100% {
+     transform: translateY(0%);
+    }
+   }

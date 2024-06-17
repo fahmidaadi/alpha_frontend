@@ -1,0 +1,63 @@
+
+<div class="container">
+    <form (ngSubmit)="onSubmit(addTrainingTypeForm)" #addTrainingTypeForm="ngForm">
+      <div class="row">
+        <h4>Ajouter un Niveau de Formation</h4>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Code Niveau de Formation" name="code" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Code niveau du Formation est requise'" *ngIf="addTrainingTypeForm.controls['code'] && addTrainingTypeForm.controls['code'].errors?.['required']" class="error-message"></app-ui-message>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Niveau Formation" name="name" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Nom du niveau Formation est requise'" *ngIf="addTrainingTypeForm.controls['name'] && addTrainingTypeForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
+        <div class="input-group input-group-icon">
+            <select name="training" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedTraining of loadedTrainings" [value]="loadedTraining.formation_id">{{ loadedTraining.lib_formation_fr }}</option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'La Formation est requise'"
+            *ngIf="addTrainingTypeForm.controls['training'] && addTrainingTypeForm.controls['training'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+
+            <div class="input-group input-group-icon">
+              <select name="internshipType" ngModel [required]="true" class="form-control">
+                <option *ngFor="let loadedInternshipType of loadedInternshipTypes" [value]="loadedInternshipType.type_stage_id">{{ loadedInternshipType.lib_Type_Stage_fr }}</option>
+              </select>
+              <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+            </div>
+            <app-ui-message [message]="'La Formation est requise'"
+              *ngIf="addTrainingTypeForm.controls['training'] && addTrainingTypeForm.controls['training'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+
+      </div>
+
+      
+      <div class="row">
+        <div class="col-half">
+          
+        </div>
+        <div class="col-half">
+          <div class="input-group">
+           
+  
+            
+            <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addTrainingTypeForm.invalid"></app-confirm-button>
+  
+            
+            <app-ui-message [message]="'Ajout avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+    
+            <app-ui-message [message]="'erreur d ajout'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+  
+  
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

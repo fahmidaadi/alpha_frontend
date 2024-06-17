@@ -1,0 +1,93 @@
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0; /* Add margin reset */
+    padding: 0; /* Add padding reset */
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+    
+}
+
+/* Container styles */
+.dashboard-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 80vh; /* Set height to full viewport height */
+}
+i{
+    text-align: center;
+}
+/* Card styles */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 20px;
+}
+
+.card-category {
+    font-size: 16px;
+    color: #666;
+
+    
+}
+
+.card-body {
+    padding: 0;
+}
+.Title {
+    font-size:x-large;
+    width: 100%;
+    background-color: #b7d7ed;
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+}
+/* Chart styles */
+canvas {
+    width: 500px;
+    height: 300px;
+}
+
+/* Stats and footer */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Push to bottom */
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.stats {
+    font-size: 14px;
+    color: #666;
+}
+
+.chart-legend {
+    display: flex;
+    align-items: center;
+}
+
+.chart-legend i {
+    margin-right: 5px;
+}
+
+/* Responsive layout */
+@media (max-width: 992px) {
+    .dashboard-container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        margin-top: 0;
+    }
+}

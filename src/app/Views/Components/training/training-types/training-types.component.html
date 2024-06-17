@@ -1,0 +1,84 @@
+<div>
+  <h2 style="text-align: center" [hidden]="!showUpdateForm">
+    Modifier {{ selectedTrainingType?.lib_niveau_formation_fr }}
+  </h2>
+  
+  <div [hidden]="showUpdateForm">
+    <h2>Liste des Niveaux de Formation</h2>
+    <app-add-button class="AddTraining" (click)="onAddTrainingClick()"></app-add-button>
+    <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+  </div>
+
+  <div [hidden]="!showUpdateForm" >
+    <div class="container">
+      <form #updateTrainingTypeForm="ngForm" (ngSubmit)="onFormSubmit(updateTrainingTypeForm)">
+        <div class="row">
+          <h4>Modifier un Niveau de Formation</h4>
+
+          <div class="input-group input-group-icon">
+            <input type="text" placeholder="Code niveau de Formation" name="code" ngModel [required]="true" />
+            <div class="input-icon"><i class="fa fa-user"></i></div>
+          </div>
+          <app-ui-message [message]="'Code niveau de Formation est requis'"
+            *ngIf="updateTrainingTypeForm.controls['code'] && updateTrainingTypeForm.controls['code'].errors?.['required']"
+            class="error-message"></app-ui-message>
+          <div class="input-group input-group-icon">
+            <input type="text" placeholder="Niveau Formation" name="name" ngModel [required]="true" />
+            <div class="input-icon"><i class="fa fa-user"></i></div>
+          </div>
+          <app-ui-message [message]="'Niveau de Formation est requis'"
+            *ngIf="updateTrainingTypeForm.controls['name'] && updateTrainingTypeForm.controls['name'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+          <!-- Updated part -->
+          <div class="input-group input-group-icon">
+            <select name="training" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedTraining of loadedTrainings" [value]="loadedTraining.formation_id">{{ loadedTraining.lib_formation_fr }}</option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'La Formation est requise'"
+            *ngIf="updateTrainingTypeForm.controls['training'] && updateTrainingTypeForm.controls['training'].errors?.['required']"
+            class="error-message"></app-ui-message>
+          <!-- End of Updated part -->
+
+          <div class="input-group input-group-icon">
+            <select name="internshipType" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedInternshipType of loadedInternshipTypes" [value]="loadedInternshipType.type_stage_id">{{ loadedInternshipType.lib_Type_Stage_fr }}</option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'Le type de stage est requis'"
+            *ngIf="updateTrainingTypeForm.controls['training'] && updateTrainingTypeForm.controls['training'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+        </div>
+
+        <div class="row">
+          <div class="col-half">
+            <div class="input-group">
+              <div class="col-third">
+              </div>
+              <div class="col-third">
+              </div>
+              <div class="col-third">
+              </div>
+            </div>
+          </div>
+          <div class="col-half">
+            <div class="input-group">
+              <app-confirm-button type="submit" class="app-confirm-button"
+                [disabled]="updateTrainingTypeForm.invalid"></app-confirm-button>
+
+              <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                class="success-message"></app-ui-message>
+
+              <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                class="error-message"></app-ui-message>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

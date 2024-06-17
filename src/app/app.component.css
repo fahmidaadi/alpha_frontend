@@ -1,0 +1,78 @@
+
+
+/* styles.css */
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 75px; /* Adjust this height as needed */
+  background-color: #4d4d4d;
+  z-index: 1000; /* Ensure the navbar is above other content */
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  position: fixed;
+  top: 75px; /* Height of the navbar */
+  left: 0;
+  bottom: 0;
+  width: 250px; /* Fixed width for the sidebar */
+}
+
+/* Content */
+.content {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  margin-top: 75px; /* Height of the navbar */
+  margin-left: 25%; /* Width of the sidebar */
+  padding: 20px;
+  max-width: calc(100% - 40%);
+  width: 100%; /* Adjust width based on the sidebar width */
+  box-sizing: border-box; /* Ensure padding doesn't add to the total width */
+}
+
+/* Media Queries for Responsive Design */
+
+/* For screens smaller than 768px */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; /* Adjust sidebar width */
+  }
+  
+  .content {
+    margin-left: 200px; /* Adjust margin to match sidebar width */
+    width: calc(100% - 200px); /* Adjust width based on the sidebar width */
+  }
+}
+
+/* For screens smaller than 600px */
+@media (max-width: 600px) {
+  .sidebar {
+    position: absolute; /* Change sidebar position to absolute */
+    width: 100%; /* Sidebar takes full width */
+    height: auto; /* Adjust height */
+    top: 75px; /* Below the navbar */
+    left: 0;
+    z-index: 999; /* Ensure it is above other content */
+  }
+  
+  .content {
+    margin-left: 0; /* No left margin */
+    width: 100%; /* Full width */
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+}

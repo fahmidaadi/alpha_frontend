@@ -1,0 +1,67 @@
+<div>
+  <h2 style="text-align: center;" [hidden]="!showUpdateForm">Modifier {{selectedInternshipType?.lib_Type_Stage_fr}}</h2>
+  <div [hidden]="showUpdateForm">
+    <h2>Liste des Types des Stages</h2>
+    <app-add-button class="AddTraining" (click)="AddInternshipType()"></app-add-button>
+    <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+  </div>
+
+
+  <div [hidden]="!showUpdateForm">
+    <div class="container">
+      <form #updateInternshipTypeForm="ngForm" (ngSubmit)="onFormSubmit(updateInternshipTypeForm)">
+        <div class="row">
+          <h4>Modifier un type de Stage</h4>
+
+          <div class="input-group input-group-icon">
+            <input type="text" placeholder="Nom du Type de Stage" name="name" ngModel [required]="true" />
+            <div class="input-icon"><i class="fa fa-user"></i></div>
+          </div>
+          <app-ui-message [message]="'Nom du type de stage est requis'"
+            *ngIf="updateInternshipTypeForm.controls['name'] && updateInternshipTypeForm.controls['name'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Code du Type de Stage" name="code" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Code du type de stage est requis'"
+              *ngIf="updateInternshipTypeForm.controls['code'] && updateInternshipTypeForm.controls['code'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+
+
+
+
+
+          <div class="row">
+            <div class="col-half">
+              <div class="input-group">
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+              </div>
+            </div>
+            <div class="col-half">
+              <div class="input-group">
+
+
+                <app-confirm-button type="submit" class="app-confirm-button"
+                  [disabled]="updateInternshipTypeForm.invalid"></app-confirm-button>
+
+                <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                  class="success-message"></app-ui-message>
+
+                <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                  class="error-message"></app-ui-message>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

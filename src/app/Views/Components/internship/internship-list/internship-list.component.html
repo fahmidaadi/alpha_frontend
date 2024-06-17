@@ -1,0 +1,123 @@
+<div>
+  <h2 class="title" [hidden]="!showUpdateForm">
+    Modifier le Stage de <strong> {{ selectedInternship?.student?.name }} </strong>
+  </h2>
+  <div [hidden]="showUpdateForm">
+    <h2 class="title">Liste des Stages</h2>
+
+    <div class="file-upload-container">
+      <app-add-button class="AddStudent" (click)="AddInternship()"></app-add-button>
+
+      <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+    </div>
+  </div>
+
+  <div [hidden]="!showUpdateForm" >
+    <div class="container">
+      <form #updateInternshipForm="ngForm" (ngSubmit)="onFormSubmit(updateInternshipForm)">
+        <div class="row">
+          <h3 style="text-align: center;">Données du Stage</h3>
+
+          <div class="input-group input-group-icon">
+            <label for="date">Date Début Stage</label>
+            <input type="date" id="date" name="start_date"  ngModel [required]="true" />
+          </div>
+          <app-ui-message [message]="'Stage start_date est requis'"
+            *ngIf="updateInternshipForm.controls['start_date'] && updateInternshipForm.controls['start_date'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+          <div class="input-group input-group-icon">
+            <label for="date">Date Fin Stage</label>
+            <input type="date" id="date" name="end_date" ngModel [required]="true" />
+          </div>
+          <app-ui-message [message]="'Stage end_date est requis'"
+            *ngIf="updateInternshipForm.controls['end_date'] && updateInternshipForm.controls['end_date'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+            <div class="input-group input-group-icon">
+              <select name="status" ngModel [required]="true" class="form-control">
+                <option value="">Sélectionner un status</option>
+                <option value="en attente">En attente</option>
+                <option value="Confirmé">Confirmé</option>
+              </select>
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Stage status est requis'"
+              *ngIf="updateInternshipForm.controls['status'] && updateInternshipForm.controls['status'].errors?.['required']"
+              class="error-message"></app-ui-message>
+            
+
+          <div class="input-group input-group-icon">
+            <input type="text" placeholder="Evaluation" name="evaluation" ngModel [required]="true" />
+            <div class="input-icon"><i class="fa fa-envelope"></i></div>
+          </div>
+          <app-ui-message [message]="'Evaluation de stage est réquis'"
+            *ngIf="updateInternshipForm.controls['evaluation'] && updateInternshipForm.controls['evaluation'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+          <div class="input-group input-group-icon">
+            <select name="etudiant_cin" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedStudent of loadedStudents" [value]="loadedStudent.cin">
+                {{ loadedStudent.name }}
+              </option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'Etudiant est requis'"
+            *ngIf="updateInternshipForm.controls['etudiant_cin'] && updateInternshipForm.controls['etudiant_cin'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+          <div class="input-group input-group-icon">
+            <select name="classe_id" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedClassRoom of loadedClassRooms" [value]="loadedClassRoom.classe_id">
+                {{ loadedClassRoom.code_classe }}
+              </option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'Classe est requis'"
+            *ngIf="updateInternshipForm.controls['classe_id'] && updateInternshipForm.controls['classe_id'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+          <div class="input-group input-group-icon">
+            <select name="niveau_formation_id" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedTrainingType of loadedTrainingTypes"
+                [value]="loadedTrainingType.niveau_formation_id">
+                {{
+                loadedTrainingType.lib_niveau_formation_fr +
+                " " +
+                loadedTrainingType.training.lib_formation_fr
+                }}
+              </option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'Niveau de Formation est requis'"
+            *ngIf="updateInternshipForm.controls['niveau_formation_id'] && updateInternshipForm.controls['niveau_formation_id'].errors?.['niveau_formation_id']"
+            class="error-message"></app-ui-message>
+        </div>
+        <div class="row">
+          <div class="col-half">
+            <div class="input-group">
+              <div class="col-third"></div>
+              <div class="col-third"></div>
+              <div class="col-third"></div>
+            </div>
+          </div>
+          <div class="col-half">
+            <div class="input-group">
+              <app-confirm-button type="submit" class="app-confirm-button"
+                [disabled]="updateInternshipForm.invalid"></app-confirm-button>
+
+              <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                class="success-message"></app-ui-message>
+
+              <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                class="error-message"></app-ui-message>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

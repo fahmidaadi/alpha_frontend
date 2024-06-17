@@ -1,0 +1,23 @@
+<table datatable class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Action</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rowData of dataRows">
+      <td>{{ rowData.id }}</td>
+      <td>{{ rowData.firstName }}</td>
+      <td>{{ rowData.lastName }}</td>a
+      <td>
+        <app-internship-details-button (click)="showDetails(rowData)">Show Details</app-internship-details-button> 
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+

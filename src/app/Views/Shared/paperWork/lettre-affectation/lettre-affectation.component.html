@@ -1,0 +1,65 @@
+<div class="container"  id="pdf-content">
+    <div id="images">
+      <img src="./assets/isetrlogo.jpg">
+      <img src="./assets/republique-tunisienne.png">
+  </div>
+      <header>
+          <div id="upper-titles">
+          <p>République Tunisienne</p>
+          <p>Ministére de l'Enseignement Superieur et de la recherche Scientifique</p>
+          <p>Direction Générale des Etudes Technologiques </p>
+          <p>Institut Supérieur des Etudes Technologiques de Radés</p>
+          </div>
+  
+          <hr>
+          <p id="today-date">Radés, Le <strong>{{ formattedDate }}</strong></p>
+  
+          <h1><strong>Lettre d'affectation pour un stage obligatoire</strong></h1>
+          
+      </header>
+      
+      <section class="content">
+  
+          <div id="data">
+  
+          <p><u>Organisme :</u></p>
+          <p><u>Adresse et coordonnées :</u></p>
+          <p><u>tel : </u></p>
+          <p><u>fax : </u></p>
+  
+           </div>
+      <div id="texte">
+  
+          <p>Madame, Monsieur le responsable des Stages et de la Formation,
+          </p>
+          <div id="content">
+          <p>Nous vous remercions vivement pour l'offre de <strong>{{internship?.student?.classRoom?.trainingType?.internshipType?.lib_Type_Stage_fr || "........................."}} </strong> obligatoire que vous avez bien voulu accorder a l'étudiant(e)
+          </p>
+          <p id="nom-etudiant"><u><strong>{{internship?.student?.name || "........................."}}</strong></u></p>
+          <p>De la classe <strong>{{internship?.student?.classRoom?.lib_classe_fr || "........................." }}</strong> du Département <strong>{{internship?.student?.classRoom?.trainingType?.training?.department?.lib_departement_fr || "........................."}}</strong>  .</p>
+          <p>Cet(te) étudiant(e) effectuera un stage au sein de votre organisme</p>
+          <p id="periode-stage"><strong>du {{internship?.start_date!.split('T')[0] || "........................." }} au {{internship?.end_date!.split('T')[0] || "........................." }}</strong></p>
+          <p>Veuillez agréer Madame, Monsieur l'expression de notre meilleure considération.</p>
+        </div>
+      </div>
+          <p id="signature"><strong>Le Directeur des Etudes et Des Stages</strong></p>
+  
+  
+      
+              <p id="nb"><strong>NB:</strong> Tout étudiant régulierement inscrit, est assuré (Seulement si le stage est effectué en Tunisie) par la mutuelle des accidents scolaires et universitaires (M.A.S.U) jusqu'au 30 juin ACTUALYEAR, au-dela de cette date, il doit se faire assurer. </p>
+  
+      </section>
+      
+      <footer>
+          <hr>
+          <p >Rue de Jérusalem -BP 172, 2098 Radés Médina &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Tél : +216 71 460-317  Fax : +216 71 442-322  </p>        
+          <p >Site Web de l'ISET Radés : isetr.rnu.tn   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Email : des.iset.rades&#64;gmail.com  </p>
+  
+      </footer>
+  </div>
+  <button (click)="exportToPDF()" class="download-button">
+    <div class="PDF"><svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" height="20" width="20" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line y2="13" x2="8" y1="13" x1="16"></line><line y2="17" x2="8" y1="17" x1="16"></line><polyline points="10 9 9 9 8 9"></polyline></svg> PDF</div>
+    <div class="download">
+      <svg class="css-i6dzq1" stroke-linejoin="round" stroke-linecap="round" fill="none" stroke-width="2" stroke="currentColor" height="24" width="24" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line y2="3" x2="12" y1="15" x1="12"></line></svg>
+    </div>
+  </button>  

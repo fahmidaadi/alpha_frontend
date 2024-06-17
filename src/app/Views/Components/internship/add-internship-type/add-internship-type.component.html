@@ -1,0 +1,47 @@
+
+<div class="container">
+    <form (ngSubmit)="onSubmit(addInternshipTypeForm)" #addInternshipTypeForm="ngForm">
+      <div class="row">
+
+
+        <h4>Ajouter un type de Stage</h4>
+
+
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Type de Stage" name="name" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Nom du type de stage est requise'" *ngIf="addInternshipTypeForm.controls['name'] && addInternshipTypeForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
+        
+       <div class="input-group input-group-icon">
+          <input type="text" placeholder="Code deType de Stage" name="code" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Code du type de stage est requise'" *ngIf="addInternshipTypeForm.controls['code'] && addInternshipTypeForm.controls['code'].errors?.['required']" class="error-message"></app-ui-message>
+        
+
+
+      </div>
+      <div class="row">
+        <div class="col-half">
+          
+        </div>
+        <div class="col-half">
+          <div class="input-group">
+           
+  
+            
+            <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addInternshipTypeForm.invalid"></app-confirm-button>
+  
+            
+            <app-ui-message [message]="'Ajout avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+    
+            <app-ui-message [message]="'erreur d ajout'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+  
+  
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

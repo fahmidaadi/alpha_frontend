@@ -1,0 +1,156 @@
+
+
+.main-menu > ul {
+  padding-top: 10%;
+  margin: 7px 0 0 1em;
+}
+
+.main-menu li {
+  position: relative;
+  display: block;
+  width: 220px;
+  background-color: #3C5B6F;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: background 0.3s, width 0.3s;
+}
+
+.main-menu li:hover {
+  background-color: #FFEC9E;
+}
+
+.main-menu li > a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px; /* Smaller padding */
+  color: #fff;
+  font-size: 14px; /* Smaller font size */
+  text-decoration: none;
+  transition: all 0.3s linear;
+}
+
+.main-menu .nav-icon {
+  display: table-cell;
+  width: 50px;
+  height: 30px; /* Smaller height */
+  text-align: center;
+  vertical-align: middle;
+  font-size: 16px;
+}
+
+.main-menu .nav-text .sub-menu {
+  flex: 1;
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.main-menu > ul.logout {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%; /* Ensure logout is full width */
+  padding: 10px 0;
+  background: #153448; /* Match the background */
+  margin-bottom: 10px; /* Add margin to separate from menu items */
+}
+
+.sub-menu {
+  padding-left: 15px;
+  background-color: #153448;
+  display: none; /* Initially hide sub-menu */
+  position: relative; /* Relative positioning */
+  z-index: 900; /* Ensure it stays below main menu */
+}
+
+.has-subnav.open .sub-menu {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 0.75em;
+  margin: 0; 
+}
+
+
+.has-subnav > a .fa-caret-down,
+.has-subnav > a .arrow {
+  margin-left: auto;
+  transition: transform 0.3s;
+
+  
+}
+
+.has-subnav.open > a .fa-caret-down,
+.has-subnav.open > a .arrow {
+  transform: rotate(180deg);
+}
+
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+nav ul, nav li {
+  outline: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.main-menu li:hover > a,
+nav.main-menu li.active > a {
+  color: #fff;
+  background-color: #FFEC9E;
+  color: black;
+  font-weight: bold;
+}
+
+.area {
+  margin-left: 250px; /* Adjust for main menu width */
+  background: #e2e2e2;
+  width: calc(100% - 250px); /* Adjust for main menu width */
+  height: 100%;
+  overflow: auto;
+  padding: 20px; /* Add some padding */
+  position: relative;
+  z-index: 500; /* Ensure it stays below submenu */
+}
+
+.main-menu {
+  background: #153448;
+  border-right: 1px solid #e5e5e5;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  width: 250px;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.2s ease-in-out;
+  z-index: 1000;
+  padding-bottom: 60px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.main-menu > ul {
+  padding-top: 37%;
+  margin: 7px 0 0 1em;
+}
+
+/* Other styles remain unchanged */
+
+.logout-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 250px;
+}
+
+
+
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+}
