@@ -15,6 +15,7 @@
           <div class="row">
             <h4>Modifier un Classe </h4>
   
+            <label for="code">Code de Classe</label>
             <div class="input-group input-group-icon">
               <input type="text" placeholder="Code de Classe" name="code" ngModel [required]="true" />
               <div class="input-icon"><i class="fa fa-user"></i></div>
@@ -22,15 +23,18 @@
             <app-ui-message [message]="'Code de Classe est requis'"
               *ngIf="updateClassRoomForm.controls['code'] && updateClassRoomForm.controls['code'].errors?.['required']"
               class="error-message"></app-ui-message>
+
+
+              <label for="name">Libellé de Classe</label>
             <div class="input-group input-group-icon">
-              <input type="text" placeholder="Non de Classe" name="name" ngModel [required]="true" />
+              <input type="text" placeholder="Libellé de Classe" name="name" ngModel [required]="true" />
               <div class="input-icon"><i class="fa fa-user"></i></div>
             </div>
-            <app-ui-message [message]="'Nom de Classe est requis'"
+            <app-ui-message [message]="'Libellé de Classe est requis'"
               *ngIf="updateClassRoomForm.controls['name'] && updateClassRoomForm.controls['name'].errors?.['required']"
               class="error-message"></app-ui-message>
   
-            <!-- Updated part -->
+            <label for="trainingType">Niveau de Formation</label>
             <div class="input-group input-group-icon">
               <select name="trainingType" ngModel [required]="true" class="form-control">
                 <option *ngFor="let loadedTrainingType of loadedTrainingTypes" [value]="loadedTrainingType.niveau_formation_id">{{ loadedTrainingType.lib_niveau_formation_fr+ '   ' + loadedTrainingType.training.lib_formation_fr }}</option>

@@ -11,6 +11,8 @@ import { InternshipType } from '../../../../Models/internship-type';
 import { InternshipTypeService } from '../../../../Services/internship-type.service';
 import { PopupMessageComponent } from '../../../Shared/popup-message/popup-message.component';
 import { PopupMessageService } from '../../../../Services/popup-message.service';
+import { Parcour } from '../../../../Models/parcour';
+import { ParcourService } from '../../../../Services/parcour.service';
 
 @Component({
   selector: 'app-add-training-types',
@@ -29,6 +31,8 @@ export class AddTrainingTypesComponent implements OnInit {
 
   loadedTrainings: Training[] = [];
   loadedInternshipTypes: InternshipType[] = [];
+  loadedParcours: Parcour[] = [];
+
 
   successMessage: string | null = null;
   errorMessage: string | null = null;
@@ -37,6 +41,7 @@ export class AddTrainingTypesComponent implements OnInit {
     private trainingTypesService: TrainingTypeService,
     private trainingService: TrainingService,
     private internshipTypeService: InternshipTypeService,
+    private parcourService : ParcourService , 
     private popupMessageService : PopupMessageService , 
     router: Router
   ) {}
@@ -44,6 +49,7 @@ export class AddTrainingTypesComponent implements OnInit {
   ngOnInit(): void {
     this.loadTrainings();
     this.loadInternshipTypes();
+    this.loadParcours();
   }
 
   private loadTrainings(): void {
@@ -68,6 +74,17 @@ export class AddTrainingTypesComponent implements OnInit {
       }
     );
   }
+  private loadParcours(): void {
+    this.parcourService.getParcours().subscribe(
+      (parcours: Parcour[]) => {
+        this.loadedParcours = parcours;
+      },
+      (error) => {
+        console.error('Error fetching Parcours', error);
+        this.errorMessage = 'Error loading Parcours!';
+      }
+    );
+  }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -78,6 +95,8 @@ export class AddTrainingTypesComponent implements OnInit {
         training: form.value.training,
         type_stage_id: form.value.internshipType,
         internshipType : form.value.internshipType,
+        parcour_id: form.value.parcour,
+        parcour : form.value.parcour
       };
 
       this.trainingTypesService.addTrainingType(trainingTypeData).subscribe(

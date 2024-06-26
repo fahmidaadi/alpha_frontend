@@ -23,7 +23,7 @@
 
         <div id="data">
 
-        <p><u>Organisme :</u></p>
+        <p><u>Organisme :</u> </p>
         <p><u>Adresse et coordonnées :</u></p>
         <p><u>tel : </u></p>
         <p><u>fax : </u></p>
@@ -31,8 +31,8 @@
          </div>
     <div id="texte">
 
-        <p>Nous venons par cette demande vous solliciter pour accorder un <strong>{{internship?.student?.classRoom?.trainingType?.internshipType?.lib_Type_Stage_fr || "........................."}} </strong> en <strong>{{internship?.student?.classRoom?.trainingType?.training?.lib_formation_fr || "........................."}} </strong>a notre étudiant(e) <strong>{{internship?.student?.name || "........................."}} </strong>inscrit(e) 
-            en <strong>{{internship?.student?.classRoom?.trainingType?.lib_niveau_formation_fr || "........................."}} </strong> du <strong>{{internship?.student?.classRoom?.trainingType?.training?.lib_formation_fr || "........................."}} </strong> en <strong>{{currentYear}} </strong> a l'Institut Superieur des Etudes Technologiques de Rades, au sein de votre etablissement
+        <p>Nous venons par cette demande vous solliciter pour accorder un <strong>{{student?.classRoom?.trainingType?.internshipType?.lib_Type_Stage_fr || "........................."}} </strong> en <strong>{{student?.classRoom?.trainingType?.training?.lib_formation_fr || "........................."}} </strong>a notre étudiant(e) <strong>{{student?.name || "........................."}} </strong>inscrit(e) 
+            en <strong>{{student?.classRoom?.trainingType?.lib_niveau_formation_fr || "........................."}} </strong> du <strong>{{student?.classRoom?.trainingType?.training?.lib_formation_fr || "........................."}} </strong> en <strong>{{currentYear}} </strong> a l'Institut Superieur des Etudes Technologiques de Rades, au sein de votre etablissement
             du <strong>{{internship?.start_date!.split('T')[0] || "........................."}} </strong> au <strong>{{internship?.end_date!.split('T')[0] || "........................."}} </strong> 
         </p>
         <p>Ce stage est obligatoire et a pour objectif d'impliquer l'étudiant dans le fonctionnement de l'entreprise et resourdre une problématique réelle

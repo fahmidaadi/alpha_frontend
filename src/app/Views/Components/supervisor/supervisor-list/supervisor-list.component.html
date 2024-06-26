@@ -1,0 +1,79 @@
+<div>
+    <h2 style="text-align: center" [hidden]="!showUpdateForm">
+      Modifier {{ selectedSupervisor?.name }}
+    </h2>
+    <div [hidden]="showUpdateForm">
+      <h2>Liste des Encadrants</h2>
+      <app-add-button class="AddTraining" (click)="AddSupervisor()"></app-add-button>
+      <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+    </div>
+  
+    <div [hidden]="!showUpdateForm">
+      <div class="container">
+        <form #updateSupervisorForm="ngForm" (ngSubmit)="onFormSubmit(updateSupervisorForm)">
+          <div class="row">
+            <h4>Modifier un Encadrant</h4>
+  
+            <label for="name">Nom d'encadrant</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Nom d'encadrant" name="name" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Nom Encadrant est requis'"
+              *ngIf="updateSupervisorForm.controls['name'] && updateSupervisorForm.controls['name'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+              <label for="contact">Contact Info</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Contact Info Encadrant" name="contact" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Contact info est requis'"
+              *ngIf="updateSupervisorForm.controls['contact'] && updateSupervisorForm.controls['contact'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+              <label for="department">Département</label>
+              <div class="input-group input-group-icon">
+                  <select name="department" ngModel [required]="true" class="form-control">
+                    <option *ngFor="let loadedDepartment of loadedDepartments" [value]="loadedDepartment.departement_id">{{ loadedDepartment.lib_departement_fr }}</option>
+                  </select>
+                  <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+                </div>
+                <app-ui-message [message]="'La Formation est requise'"
+                  *ngIf="updateSupervisorForm.controls['training'] && updateSupervisorForm.controls['training'].errors?.['required']"
+                  class="error-message"></app-ui-message>
+
+
+          </div>
+  
+          <div class="row">
+            <div class="col-half">
+              <div class="input-group">
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+              </div>
+            </div>
+            <div class="col-half">
+  
+              <div class="input-group">
+  
+  
+                <app-confirm-button type="submit" class="app-confirm-button"
+                  [disabled]="updateSupervisorForm.invalid"></app-confirm-button>
+  
+                <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                  class="success-message"></app-ui-message>
+  
+                <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                  class="error-message"></app-ui-message>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

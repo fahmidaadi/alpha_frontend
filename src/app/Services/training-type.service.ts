@@ -5,6 +5,7 @@ import { map, catchError, mergeMap } from 'rxjs/operators';
 import { TrainingType } from '../Models/training-type';
 import { TrainingService } from './training.service';
 import { InternshipTypeService } from './internship-type.service';
+import { ParcourService } from './parcour.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class TrainingTypeService {
   selectedTrainingType: TrainingType | null = null;
   showUpdateForm: boolean = false;
 
-  constructor(private http: HttpClient ,  private trainingService : TrainingService , private internshipTypeService : InternshipTypeService) { }
+  constructor(private http: HttpClient ,private parcourService : ParcourService  ,private trainingService : TrainingService , private internshipTypeService : InternshipTypeService) { }
 
   // Get training types
   getTrainingTypes(): Observable<TrainingType[]> {
@@ -24,34 +25,22 @@ export class TrainingTypeService {
       .pipe(
         map(response => response.data), // Extract the data array from the response
         mergeMap(trainingTypes => {
-          // Create an observable for each trainingType to fetch both training and internshipType
+          // Create an observable for each trainingType to fetch training, internshipType, and parcour
           const observables = trainingTypes.map(trainingType =>
-            this.trainingService.getTrainingById(trainingType.formation_id!.toString()).pipe(
-              map(training => {
+            forkJoin({
+              training: this.trainingService.getTrainingById(trainingType.formation_id!.toString()),
+              internshipType: this.internshipTypeService.getInternshipTypeById(trainingType.type_stage_id!.toString()),
+              parcour: this.parcourService.getParcourId(trainingType.parcour_id!.toString())
+            }).pipe(
+              map(({ training, internshipType, parcour }) => {
                 trainingType.training = training;
+                trainingType.internshipType = internshipType?.data;
+                trainingType.parcour = parcour;
                 return trainingType;
               }),
-              // Now nest the internshipType fetching within the trainingType observable
-              mergeMap(trainingType =>
-                (trainingType.type_stage_id
-                  ? this.internshipTypeService.getInternshipTypeById(trainingType.type_stage_id!.toString())
-                      .pipe(
-                        map(internshipType => {
-                          trainingType.internshipType = internshipType?.data;
-                          return trainingType;
-                        }),
-                        catchError(error => {
-                          // Log error and continue with trainingType without internshipType
-                          console.error('Error fetching internship type:', error);
-                          return of(trainingType);
-                        })
-                      )
-                  : of(trainingType) // If no internship type ID, just return the trainingType as is
-                )
-              ),
               catchError(error => {
-                // Log error and continue with trainingType without training data
-                console.error('Error fetching training:', error);
+                // Log error and continue with trainingType without some data
+                console.error('Error fetching training type details:', error);
                 return of(trainingType);
               })
             )
@@ -63,7 +52,8 @@ export class TrainingTypeService {
         catchError(this.handleError) // Top-level error handling
       );
   }
-  
+
+ 
   
   
   

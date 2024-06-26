@@ -12,6 +12,7 @@ import {
   throwError,
   forkJoin,
   switchMap,
+  of,
 } from 'rxjs';
 import { ClassRoom } from '../Models/classRoom';
 import { Student } from '../Models/student';
@@ -20,6 +21,7 @@ import { Internship } from '../Models/internship';
 import { StudentService } from './student.service';
 import { TrainingTypeService } from './training-type.service';
 import { InternshipTypeService } from './internship-type.service';
+import { SupervisorService } from './supervisor.service';
 
 @Injectable({
   providedIn: 'root',
@@ -33,27 +35,28 @@ export class InternshipService {
   constructor(
     private http: HttpClient,
     private classRoomService: ClassService,
-    private studentService: StudentService,
     private trainingTypeService: TrainingTypeService,
-    private internshipTypeService :InternshipTypeService
+    private internshipTypeService :InternshipTypeService ,
+    private supervisorService : SupervisorService,
+    private studentService : StudentService
   ) {}
 
   // Get internship
   
   getInternships(): Observable<Internship[]> {
-    return this.http.get<{ success: boolean; message: string; data: Internship[] }>(`${this.apiUrl}/stage`).pipe(
+    return this.http.get<{ success: boolean; message: string; data: Internship[] }>(`${this.apiUrl}/stages`).pipe(
       map(response => response.data),
       mergeMap(internships => {
         const internshipObservables = internships.map(internship =>
-          this.studentService.getStudentById(internship.etudiant_cin.toString()).pipe(
-            mergeMap(student => {
-              internship.student = student;
-              return this.classRoomService.getClassRoomById(internship.classe_id.toString()).pipe(
-                mergeMap(classRoom => {
-                  internship.classRoom = classRoom;
-                  return this.trainingTypeService.getTrainingTypeById(internship.niveau_formation_id.toString()).pipe(
-                    map(trainingType => {
-                      internship.trainingType = trainingType;
+          this.classRoomService.getClassRoomById(internship.classe_id.toString()).pipe(
+            mergeMap(classRoom => {
+              internship.classRoom = classRoom;
+              return this.trainingTypeService.getTrainingTypeById(internship.niveau_formation_id.toString()).pipe(
+                mergeMap(trainingType => {
+                  internship.trainingType = trainingType;
+                  return this.supervisorService.getSupervisorById(internship.encadrant_id.toString()).pipe(
+                    map(supervisor => {
+                      internship.supervisor = supervisor;
                       return internship;
                     })
                   );
@@ -66,18 +69,19 @@ export class InternshipService {
       }),
       catchError(error => {
         console.error('Error fetching internships:', error);
-        throw error;
+        return throwError(() => new Error(error));
       })
     );
   }
+  
 
 
   // Add INTERNSHIP
   addIntenship(internship: Internship): Observable<Internship> {
     const headers = this.createAuthorizationHeaders();
-
+    
     return this.http
-      .post<Internship>(`${this.apiUrl}/stage`, internship, { headers })
+      .post<Internship>(`${this.apiUrl}/stages`, internship, { headers })
       .pipe(catchError(this.handleError));
   }
 
@@ -92,7 +96,7 @@ export class InternshipService {
     const headers = this.createAuthorizationHeaders();
 
     return this.http
-      .delete<void>(`${this.apiUrl}/stage/${id}`, { headers })
+      .delete<void>(`${this.apiUrl}/stages/${id}`, { headers })
       .pipe(catchError(this.handleError));
   }
 
@@ -104,43 +108,29 @@ export class InternshipService {
     const headers = this.createAuthorizationHeaders();
 
     return this.http
-      .put<Internship>(`${this.apiUrl}/stage/${id}`, internshipData, { headers })
+      .put<Internship>(`${this.apiUrl}/stages/${id}`, internshipData, { headers })
       .pipe(catchError(this.handleError));
   }
 
   //Get internship by id
   getInternshipById(stageId: string): Observable<Internship> {
-    return this.http.get<{ success: boolean; message: string; data: Internship }>(`${this.apiUrl}/stage/${stageId}`).pipe(
-      map(response => response.data),
-      mergeMap(internship =>
-        this.studentService.getStudentById(internship.etudiant_cin.toString()).pipe(
-          mergeMap(student => {
-            internship.student = student;
-            return this.classRoomService.getClassRoomById(internship.classe_id.toString()).pipe(
-              mergeMap(classRoom => {
-                internship.classRoom = classRoom;
-                return this.trainingTypeService.getTrainingTypeById(internship.niveau_formation_id.toString()).pipe(
-                  mergeMap(trainingType => {
-                    internship.trainingType = trainingType;
-                    return this.internshipTypeService.getInternshipTypeById(trainingType.type_stage_id.toString()).pipe(
-                      map(internshipType => {
-                        internship.trainingType.internshipType = internshipType;
-                        return internship;
-                      })
-                    );
-                  })
-                );
-              })
-            );
-          })
-        )
-      ),
-      catchError(error => {
-        console.error(`Error fetching data for internship with ID ${stageId}:`, error);
-        throw error;
+    return this.http.get<{ success: boolean; message: string; data: Internship }>(`${this.apiUrl}/stages/formatted/${stageId}`).pipe(
+      map(response => {
+        const internship = response.data;
+
+        // Assign student1 and student2 directly from the API response
+        internship.etudiant1_cin = internship.etudiant1_cin;
+        internship.etudiant1_cin = internship.etudiant1_cin;
+
+        return internship;
       })
     );
   }
+  
+  
+
+  
+  
   
 
   //Authorization

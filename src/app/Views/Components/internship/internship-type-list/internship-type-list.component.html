@@ -12,7 +12,19 @@
       <form #updateInternshipTypeForm="ngForm" (ngSubmit)="onFormSubmit(updateInternshipTypeForm)">
         <div class="row">
           <h4>Modifier un type de Stage</h4>
+          
 
+          <label for="code">Code du Type de Stage</label>
+          <div class="input-group input-group-icon">
+            <input type="text" placeholder="Code du Type de Stage" name="code" ngModel [required]="true" />
+            <div class="input-icon"><i class="fa fa-user"></i></div>
+          </div>
+          <app-ui-message [message]="'Code du type de stage est requis'"
+            *ngIf="updateInternshipTypeForm.controls['code'] && updateInternshipTypeForm.controls['code'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+
+          <label for="name">Libellé Type de Stage</label>
           <div class="input-group input-group-icon">
             <input type="text" placeholder="Nom du Type de Stage" name="name" ngModel [required]="true" />
             <div class="input-icon"><i class="fa fa-user"></i></div>
@@ -21,18 +33,7 @@
             *ngIf="updateInternshipTypeForm.controls['name'] && updateInternshipTypeForm.controls['name'].errors?.['required']"
             class="error-message"></app-ui-message>
 
-            <div class="input-group input-group-icon">
-              <input type="text" placeholder="Code du Type de Stage" name="code" ngModel [required]="true" />
-              <div class="input-icon"><i class="fa fa-user"></i></div>
-            </div>
-            <app-ui-message [message]="'Code du type de stage est requis'"
-              *ngIf="updateInternshipTypeForm.controls['code'] && updateInternshipTypeForm.controls['code'].errors?.['required']"
-              class="error-message"></app-ui-message>
-
-
-
-
-
+      
 
           <div class="row">
             <div class="col-half">

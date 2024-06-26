@@ -33,10 +33,10 @@
           <p>Madame, Monsieur le responsable des Stages et de la Formation,
           </p>
           <div id="content">
-          <p>Nous vous remercions vivement pour l'offre de <strong>{{internship?.student?.classRoom?.trainingType?.internshipType?.lib_Type_Stage_fr || "........................."}} </strong> obligatoire que vous avez bien voulu accorder a l'étudiant(e)
+          <p>Nous vous remercions vivement pour l'offre de <strong>{{student?.classRoom?.trainingType?.internshipType?.lib_Type_Stage_fr || "........................."}} </strong> obligatoire que vous avez bien voulu accorder a l'étudiant(e)
           </p>
-          <p id="nom-etudiant"><u><strong>{{internship?.student?.name || "........................."}}</strong></u></p>
-          <p>De la classe <strong>{{internship?.student?.classRoom?.lib_classe_fr || "........................." }}</strong> du Département <strong>{{internship?.student?.classRoom?.trainingType?.training?.department?.lib_departement_fr || "........................."}}</strong>  .</p>
+          <p id="nom-etudiant"><u><strong>{{student?.name || "........................."}}</strong></u></p>
+          <p>De la classe <strong>{{student?.classRoom?.lib_classe_fr || "........................." }}</strong> du Département <strong>{{student?.classRoom?.trainingType?.training?.department?.lib_departement_fr || "........................."}}</strong>  .</p>
           <p>Cet(te) étudiant(e) effectuera un stage au sein de votre organisme</p>
           <p id="periode-stage"><strong>du {{internship?.start_date!.split('T')[0] || "........................." }} au {{internship?.end_date!.split('T')[0] || "........................." }}</strong></p>
           <p>Veuillez agréer Madame, Monsieur l'expression de notre meilleure considération.</p>

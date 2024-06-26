@@ -56,7 +56,33 @@ export class DepartmentListComponent {
   ) { }
 
   ngOnInit(): void {
+    
     this.dtOptions = {
+      language: {
+        "emptyTable": "Aucune donnée disponible dans le tableau",
+    "loadingRecords": "Chargement...",
+    "processing": "Traitement...",
+    "decimal": ",",
+    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    "infoEmpty": "Affichage de 0 à 0 sur 0 entrées",
+    "infoFiltered": "(filtrées depuis un total de _MAX_ entrées)",
+    "lengthMenu": "Afficher _MENU_ entrées",
+    "paginate": {
+        "first": "Première",
+        "last": "Dernière",
+        "next": "Suivante",
+        "previous": "Précédente"
+    },
+    "zeroRecords": "Aucune entrée correspondante trouvée",
+    "aria": {
+        "sortAscending": " : activer pour trier la colonne par ordre croissant",
+        "sortDescending": " : activer pour trier la colonne par ordre décroissant"
+    },
+    "search": "Rechercher :",
+    "thousands": " "   
+      },
+
+
       ajax: (dataTablesParameters: any, callback) => {
         this.departmentService.getDepartments().subscribe(
           (data: Department[]) => {
@@ -77,11 +103,11 @@ export class DepartmentListComponent {
       },
       columns: [
         {
-          title: 'Code Département ',
+          title: 'Code',
           data: 'code_departement',
         },
         {
-          title: 'DépartEment',
+          title: 'Libellé Département',
           data: 'lib_departement_fr',
         },
         {

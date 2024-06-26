@@ -1,0 +1,52 @@
+
+<div class="container">
+    <form (ngSubmit)="onSubmit(addCollegeYearForm)" #addCollegeYearForm="ngForm">
+      <div class="row">
+        <h4>Ajouter une Année Universitaire</h4>
+
+        <label for="collegeYear">Libellé d'année Universitaire</label>
+        <div class="input-group input-group-icon">
+          <input 
+            type="text" 
+            id="collegeYear" 
+            name="name" 
+            placeholder="Libellé du Année Universitaire" 
+            ngModel 
+            [required]="true" 
+            maxlength="9" 
+            pattern="^20\d{2}-20\d{2}$" 
+            title="L'année universitaire doit être au format 20xx-20xx, par exemple 2023-2024"
+          />
+          <div class="input-icon"><i class="fa fa-calendar"></i></div>
+        </div>
+        <app-ui-message 
+          [message]="'Libellé Année Universitaire est requis et doit être au format 20xx-20xx'" 
+          *ngIf="addCollegeYearForm.controls['name'] && addCollegeYearForm.controls['name'].errors?.['required'] || addCollegeYearForm.controls['name'].errors?.['pattern']" 
+          class="error-message"
+        ></app-ui-message>
+
+        
+      </div>
+      <div class="row">
+        <div class="col-half">
+          
+        </div>
+        <div class="col-half">
+          <div class="input-group">
+           
+  
+            
+            <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addCollegeYearForm.invalid"></app-confirm-button>
+  
+            
+            <app-ui-message [message]="'Ajout avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+    
+            <app-ui-message [message]="'erreur d ajout'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+  
+  
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

@@ -1,5 +1,6 @@
 import { ClassRoom } from "./classRoom";
 import { Student } from "./student";
+import { Supervisor } from "./supervisor";
 import { TrainingType } from "./training-type";
 
 export interface Internship {
@@ -8,11 +9,19 @@ export interface Internship {
     end_date : string;
     status: string; 
     evaluation : string ;
-    etudiant_cin: number ;
     classe_id: number ;
     niveau_formation_id :number ;
+    encadrant_id : number ;
+    
+    etudiants : String[];
 
-    student : Student;
+    Etudiants :Student[];
+
     classRoom : ClassRoom;
     trainingType : TrainingType;
+    supervisor : Supervisor;
+    etudiant1_cin? : Student ;
+    etudiant2_cin? : Student | null;
+    
+
 }

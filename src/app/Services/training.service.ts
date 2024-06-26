@@ -4,6 +4,7 @@ import { Observable, map, catchError, throwError, forkJoin, mergeMap } from 'rxj
 import { DepartmentService } from './department.service';
 import { Training } from '../Models/training';
 import { Department } from '../Models/department';
+import { CollegeYearService } from './college-year.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class TrainingService {
   selectedTraining: Training | null = null;
   showUpdateForm: boolean = false;
 
-  constructor(private http: HttpClient ,  private departmentService : DepartmentService) { }
+  constructor(private http: HttpClient ,  private departmentService : DepartmentService , private collegeYearService : CollegeYearService) { }
 
   getTrainings(): Observable<Training[]> {
     return this.http.get<{ success: boolean; message: string; data: Training[] }>(`${this.apiUrl}/formations`)
@@ -22,24 +23,28 @@ export class TrainingService {
         map(response => response.data),
         mergeMap(trainings => {
           const TrainingObservables = trainings.map(training =>
-            this.departmentService.getDepartmentId(training.departement_id!.toString())
-            .pipe(
-              map(department => {
-                training.department = department; // Use optional chaining
+            forkJoin({
+              department: this.departmentService.getDepartmentId(training.departement_id.toString()),
+              collegeYear: this.collegeYearService.getCollegeYearById(training.annee_universitaire_id.toString())
+            }).pipe(
+              map(({ department, collegeYear }) => {
+                training.department = department;
+                training.collegeYear = collegeYear;
                 return training;
-                }),
-                // Add error handling for nested requests (optional)
-                catchError(error => {
-                  // Handle specific error for getTrainingById
-                  return throwError(error);
-                })
-              )
+              }),
+              catchError(error => {
+                console.error('Error fetching department or collegeYear', error);
+                return throwError(error);
+              })
+            )
           );
           return forkJoin(TrainingObservables);
         }),
-        catchError(this.handleError) // Top-level error handling
+        catchError(this.handleError)
       );
   }
+
+ 
 
   // Add training
   addTraining(training: Training): Observable<Training> {

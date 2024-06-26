@@ -1,4 +1,5 @@
 import { InternshipType } from "./internship-type";
+import { Parcour } from "./parcour";
 import { Training } from "./training";
 
 export interface TrainingType {
@@ -9,8 +10,10 @@ export interface TrainingType {
     lib_niveau_formation_fr: string;
     type_stage_id: number;
     formation_id: number;
+    parcour_id: number;
     training: Training;
     internshipType : InternshipType;
+    parcour : Parcour;
 
     
     // stage: internship;

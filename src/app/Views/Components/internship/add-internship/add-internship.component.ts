@@ -114,45 +114,70 @@ export class AddInternshipComponent {
   }
 
   onSubmit(form: NgForm): void {
+    // Check if the form is valid and there are students selected
     if (form.valid && this.students.length > 0) {
+      // Convert the start and end dates to the required format
       const startDate = this.convertDateFormat(form.value.start_date);
       const endDate = this.convertDateFormat(form.value.end_date);
-  
+
       const student = this.students[0]; // Get the first student in the array
+
+      
+      // Extract CINs from the students array and convert them to numbers
+      const studentCins = this.students.map(student => student.selectedStudentCin);
   
+      // Create an internship data object with the necessary fields
       const internshipData = {
         start_date: startDate,
         end_date: endDate,
         status: form.value.status,
         evaluation: form.value.evaluation,
-        etudiant_cin: Number(student.selectedStudentCin),
         classe_id: student.selectedStudentClassroomId,
         niveau_formation_id: student.selectedStudentTrainingTypeId,
-        classRoom: form.value.classe_id, // Assuming this is the default classroom for the internship
-        student: form.value.etudiant_id, // Assuming this is the student for the current iteration
-        trainingType: form.value.niveau_formation_id, // Assuming this is the training type for the current iteration
-      };
+        encadrant_id: 1 ,
+
+        etudiants: studentCins,
+
+        Etudiants :form.value.status,
+
+        classRoom : form.value.status,
+        trainingType : form.value.status,
+        supervisor : form.value.status,
+        etudiant1_cin : form.value.status ,
+        etudiant2_cin : form.value.status ,
+
+    };
+
+    console.log("Data being sent to the API:", JSON.stringify(internshipData, null, 2));
+
   
-      // Assuming you have an internshipService method to add/update internships
+      // Send the internship data to the backend service
       this.internshipService.addIntenship(internshipData).subscribe(
         () => {
+          // On success, show a success message and reset the form
           this.popupMessageService.showPopupMessage('Stage ajouté avec succès!', 'success');
-
           this.successMessage = 'Stage ajouté avec succès!';
           this.errorMessage = null;
           form.resetForm();
+          // Navigate to the internship list page
           this.router.navigate(['/internship-list']);
         },
         (error) => {
+          // On error, log the error and show an error message
           console.error('Erreur lors de l ajout du Stage', error);
           this.popupMessageService.showPopupMessage('Erreur lors de l ajout du Stage', 'error');
-
           this.errorMessage = 'Erreur lors de l ajout du Stage!';
           this.successMessage = null;
         }
       );
+    } else {
+      // If the form is invalid or no students are selected, show an error message
+      this.errorMessage = 'Formulaire invalide ou aucun étudiant sélectionné!';
+      this.successMessage = null;
     }
   }
+  
+
   
 
   addStudent(): void {

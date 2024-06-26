@@ -17,6 +17,8 @@ import { Observable, forkJoin, map } from 'rxjs';
 import { TrainingService } from '../../../../Services/training.service';
 import { InternshipTypeService } from '../../../../Services/internship-type.service';
 import { InternshipType } from '../../../../Models/internship-type';
+import { ParcourService } from '../../../../Services/parcour.service';
+import { Parcour } from '../../../../Models/parcour';
 
 @Component({
   selector: 'app-training-types',
@@ -38,10 +40,13 @@ export class TrainingTypesComponent implements OnInit {
   selectedTrainingType: TrainingType | null = null;
   loadedTrainings: Training[] = [];
   loadedInternshipTypes: InternshipType[] = [];
+  loadedParcours: Parcour[] = [];
+
 
   trainingTypes: TrainingType[] = [];
   trainings: Training[] = [];
   internshipTypes: InternshipType[] = [];
+  parcours : Parcour[]=[];
 
   
   
@@ -56,6 +61,7 @@ export class TrainingTypesComponent implements OnInit {
     private trainingTypeService: TrainingTypeService,
     private trainingService: TrainingService,
     private internshipTypeService : InternshipTypeService,
+    private parcouService : ParcourService,
     private dialogService: DialogService,
     private router: Router
   ) {}
@@ -63,8 +69,33 @@ export class TrainingTypesComponent implements OnInit {
   ngOnInit(): void {
     this.loadTrainings();
     this.loadInternshipTypes();
+    this.loadParcours();
 
     this.dtOptions = {
+
+      language: {
+        "emptyTable": "Aucune donnée disponible dans le tableau",
+    "loadingRecords": "Chargement...",
+    "processing": "Traitement...",
+    "decimal": ",",
+    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    "infoEmpty": "Affichage de 0 à 0 sur 0 entrées",
+    "infoFiltered": "(filtrées depuis un total de _MAX_ entrées)",
+    "lengthMenu": "Afficher _MENU_ entrées",
+    "paginate": {
+        "first": "Première",
+        "last": "Dernière",
+        "next": "Suivante",
+        "previous": "Précédente"
+    },
+    "zeroRecords": "Aucune entrée correspondante trouvée",
+    "aria": {
+        "sortAscending": " : activer pour trier la colonne par ordre croissant",
+        "sortDescending": " : activer pour trier la colonne par ordre décroissant"
+    },
+    "search": "Rechercher :",
+    "thousands": " "   
+      },
       ajax: (dataTablesParameters: any, callback) => {
         this.trainingTypeService.getTrainingTypes().subscribe(
           (data: TrainingType[]) => {
@@ -75,6 +106,7 @@ export class TrainingTypesComponent implements OnInit {
                 lib_niveau_formation_fr: trainingType.lib_niveau_formation_fr,
                 formation: trainingType.training.lib_formation_fr,
                 internshipType: trainingType.internshipType.lib_Type_Stage_fr,
+                parcour : trainingType.parcour.lib_parcour_fr,
                 actions: this.renderActions(trainingType),
 
               };
@@ -88,10 +120,12 @@ export class TrainingTypesComponent implements OnInit {
         );
       },
       columns: [
-        { title: 'Code niveau de formation', data: 'code_niveau_formation' },
-        { title: 'Niveau de Formation', data: 'lib_niveau_formation_fr' },
+        { title: 'Code', data: 'code_niveau_formation' },
+        { title: 'Libellé de Niveau de Formation', data: 'lib_niveau_formation_fr' },
         { title: 'Formation', data: 'formation' },
         { title: 'Type de Stage' , data : 'internshipType'},
+        { title: 'Parcour' , data : 'parcour'},
+
         {
           title: 'Actions',
           data: 'actions',
@@ -166,6 +200,7 @@ export class TrainingTypesComponent implements OnInit {
         name: trainingType.lib_niveau_formation_fr,
         training: trainingType.training.formation_id,
         internshipType: trainingType.type_stage_id,
+        parcour: trainingType.parcour_id,
 
       });
     }
@@ -194,6 +229,17 @@ export class TrainingTypesComponent implements OnInit {
       }
     );
   }
+  private loadParcours(): void {
+    this.parcouService.getParcours().subscribe(
+      (parcours: Parcour[]) => {
+        this.loadedParcours = parcours;
+      },
+      (error) => {
+        console.error('Error fetching Parcours', error);
+        this.errorMessage = 'Error loading Parcours!';
+      }
+    );
+  }
 
 
   onFormSubmit(form: NgForm): void {
@@ -202,7 +248,8 @@ export class TrainingTypesComponent implements OnInit {
         code_niveau_formation: form.value.code,
         lib_niveau_formation_fr: form.value.name,
         formation_id: form.value.training,
-        type_stage_id: form.value.internshipType
+        type_stage_id: form.value.internshipType,
+        parcour_id: form.value.parcour
       };
 
       this.trainingTypeService

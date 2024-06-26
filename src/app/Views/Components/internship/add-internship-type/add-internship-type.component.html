@@ -7,19 +7,24 @@
         <h4>Ajouter un type de Stage</h4>
 
 
+        <label for="code">Code du Type de Stage</label>
         <div class="input-group input-group-icon">
-          <input type="text" placeholder="Type de Stage" name="name" ngModel [required]="true"/>
+           <input type="text" placeholder="Code de Type de Stage" name="code" ngModel [required]="true"/>
+           <div class="input-icon"><i class="fa fa-user"></i></div>
+         </div>
+         <app-ui-message [message]="'Code du type de stage est requise'" *ngIf="addInternshipTypeForm.controls['code'] && addInternshipTypeForm.controls['code'].errors?.['required']" class="error-message"></app-ui-message>
+         
+ 
+
+        <label for="name">Code du Type de Stage</label>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Libellé Type de Stage" name="name" ngModel [required]="true"/>
           <div class="input-icon"><i class="fa fa-user"></i></div>
         </div>
         <app-ui-message [message]="'Nom du type de stage est requise'" *ngIf="addInternshipTypeForm.controls['name'] && addInternshipTypeForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
         
-       <div class="input-group input-group-icon">
-          <input type="text" placeholder="Code deType de Stage" name="code" ngModel [required]="true"/>
-          <div class="input-icon"><i class="fa fa-user"></i></div>
-        </div>
-        <app-ui-message [message]="'Code du type de stage est requise'" *ngIf="addInternshipTypeForm.controls['code'] && addInternshipTypeForm.controls['code'].errors?.['required']" class="error-message"></app-ui-message>
-        
 
+       
 
       </div>
       <div class="row">

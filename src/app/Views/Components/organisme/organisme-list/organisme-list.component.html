@@ -1,0 +1,93 @@
+<div>
+    <h2 style="text-align: center" [hidden]="!showUpdateForm">
+      Modifier {{ selectedOrganisme?.lib_organisme }}
+    </h2>
+    <div [hidden]="showUpdateForm">
+      <h2>Liste des Organismes</h2>
+      <app-add-button class="AddTraining" (click)="AddDepartment()"></app-add-button>
+      <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+    </div>
+  
+    <div [hidden]="!showUpdateForm">
+      <div class="container">
+        <form #updateOrganismeForm="ngForm" (ngSubmit)="onFormSubmit(updateOrganismeForm)">
+          <div class="row">
+            <h4>Modifier un Organisme</h4>
+  
+
+
+
+            <label for="name">Libellé Organisme</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Libellé Organisme" name="name" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Nom de Organisme est requis'"
+              *ngIf="updateOrganismeForm.controls['name'] && updateOrganismeForm.controls['name'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+
+              <label for="tel">Téléphone d'Organisme</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Téléphone d'Organisme" name="tel" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'TTéléphone d Organisme est requis'"
+              *ngIf="updateOrganismeForm.controls['tel'] && updateOrganismeForm.controls['tel'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+
+              <label for="fax">Fax d'Organisme</label>
+              <div class="input-group input-group-icon">
+                <input type="text" placeholder="Fax du Organisme" name="fax" ngModel [required]="true" />
+                <div class="input-icon"><i class="fa fa-user"></i></div>
+              </div>
+              <app-ui-message [message]="'Fax de Organisme est requis'"
+                *ngIf="updateOrganismeForm.controls['fax'] && updateOrganismeForm.controls['fax'].errors?.['required']"
+                class="error-message"></app-ui-message>
+
+
+
+
+                <label for="adresse">Adresse d'Organisme</label>
+                <div class="input-group input-group-icon">
+                    <input type="text" placeholder="Adresse d'Organisme" name="adresse" ngModel [required]="true" />
+                    <div class="input-icon"><i class="fa fa-user"></i></div>
+                  </div>
+                  <app-ui-message [message]="'Adresse du Organisme est requis'"
+                    *ngIf="updateOrganismeForm.controls['adresse'] && updateOrganismeForm.controls['adresse'].errors?.['required']"
+                    class="error-message"></app-ui-message>
+
+          </div>
+  
+          <div class="row">
+            <div class="col-half">
+              <div class="input-group">
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+              </div>
+            </div>
+            <div class="col-half">
+  
+              <div class="input-group">
+  
+  
+                <app-confirm-button type="submit" class="app-confirm-button"
+                  [disabled]="updateOrganismeForm.invalid"></app-confirm-button>
+  
+                <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                  class="success-message"></app-ui-message>
+  
+                <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                  class="error-message"></app-ui-message>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

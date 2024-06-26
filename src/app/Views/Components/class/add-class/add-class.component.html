@@ -3,16 +3,25 @@
     <form (ngSubmit)="onSubmit(addClassRoomTypeForm)" #addClassRoomTypeForm="ngForm">
       <div class="row">
         <h4>Ajouter un Classe</h4>
+
+        <label for="code">Code de Classe</label>
         <div class="input-group input-group-icon">
           <input type="text" placeholder="Code Classe" name="code" ngModel [required]="true"/>
           <div class="input-icon"><i class="fa fa-user"></i></div>
         </div>
         <app-ui-message [message]="'Code niveau du Formation est requise'" *ngIf="addClassRoomTypeForm.controls['code'] && addClassRoomTypeForm.controls['code'].errors?.['required']" class="error-message"></app-ui-message>
+        
+        
+        <label for="name">Libellé de Classe</label>
         <div class="input-group input-group-icon">
-          <input type="text" placeholder="Nom de Class" name="name" ngModel [required]="true"/>
+          <input type="text" placeholder="Libellé de Class" name="name" ngModel [required]="true"/>
           <div class="input-icon"><i class="fa fa-user"></i></div>
         </div>
-        <app-ui-message [message]="'Nom de Classe'" *ngIf="addClassRoomTypeForm.controls['name'] && addClassRoomTypeForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
+        <app-ui-message [message]="'Libellé de Classe est requis'" *ngIf="addClassRoomTypeForm.controls['name'] && addClassRoomTypeForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
+       
+       
+       
+        <label for="trainingType">Niveau de Formation</label>
         <div class="input-group input-group-icon">
             <select name="trainingType" ngModel [required]="true" class="form-control">
               <option *ngFor="let loadedTrainingType of loadedTrainingTypes" [value]="loadedTrainingType.niveau_formation_id">{{ loadedTrainingType.code_niveau_formation }}</option>

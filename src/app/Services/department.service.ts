@@ -1,9 +1,7 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, mergeMap, catchError, throwError, forkJoin } from 'rxjs';
-import { ClassRoom } from '../Models/classRoom';
 import { Department } from '../Models/department';
-import { TrainingTypeService } from './training-type.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +9,6 @@ import { TrainingTypeService } from './training-type.service';
 export class DepartmentService {
   private apiUrl = 'http://localhost:9000/api/v1'; // Your API endpoint URL
 
-  selectedTraining: Department | null = null;
-  showUpdateForm: boolean = false;
 
   constructor(private http: HttpClient) { }
 

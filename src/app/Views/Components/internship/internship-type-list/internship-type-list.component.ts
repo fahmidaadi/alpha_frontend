@@ -20,6 +20,7 @@ import { DialogService } from '../../../../Services/dialog.service';
 import { InternshipTypeService } from '../../../../Services/internship-type.service';
 import { Config } from 'datatables.net';
 
+
 @Component({
   selector: 'app-internship-type-list',
   standalone: true,
@@ -60,6 +61,32 @@ export class InternshipTypeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.dtOptions = {
+      
+      language: {
+        "emptyTable": "Aucune donnée disponible dans le tableau",
+    "loadingRecords": "Chargement...",
+    "processing": "Traitement...",
+    "decimal": ",",
+    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    "infoEmpty": "Affichage de 0 à 0 sur 0 entrées",
+    "infoFiltered": "(filtrées depuis un total de _MAX_ entrées)",
+    "lengthMenu": "Afficher _MENU_ entrées",
+    "paginate": {
+        "first": "Première",
+        "last": "Dernière",
+        "next": "Suivante",
+        "previous": "Précédente"
+    },
+    "zeroRecords": "Aucune entrée correspondante trouvée",
+    "aria": {
+        "sortAscending": " : activer pour trier la colonne par ordre croissant",
+        "sortDescending": " : activer pour trier la colonne par ordre décroissant"
+    },
+    "search": "Rechercher :",
+    "thousands": " "   
+      },
+
+
        ajax: (dataTablesParameters: any, callback) => {
          this.internshipTypeService.getInternshipTypes().subscribe(
            (data: InternshipType[]) => {
@@ -78,10 +105,10 @@ export class InternshipTypeListComponent implements OnInit {
          );
        },
        columns: [{
-         title: 'Code de Type de Stage',
+         title: 'Code',
         data: 'code_type_stage'
        }, {
-         title: 'Type de Stage',
+         title: 'Libellé de Type de Stage',
          data: 'lib_Type_Stage_fr'
        },
       
@@ -94,6 +121,7 @@ export class InternshipTypeListComponent implements OnInit {
          }
        }],
      };
+     
  
     
  

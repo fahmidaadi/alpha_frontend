@@ -60,6 +60,29 @@ export class SideBarComponent {
   goToClassList(){
     this.router.navigate(['/classes-list']);
   }
+  goToDepartmentList(){
+    this.router.navigate(['/department-list']);
+  }
+  goToOrganismeList(){
+    this.router.navigate(['/organisme-list']);
+  }
+  goToProjectsList(){
+    this.router.navigate(['/projects-list']);
+  }
+
+  goToSupervisorList(){
+    this.router.navigate(['/supervisor-list']);
+  }
+  goToCollegeYearList(){
+    this.router.navigate(['/college-year-list']);
+  }
+  goToParcourList(){
+    this.router.navigate(['/parcour-list']);
+  }
+ 
+
+
+
 
   goToDemandeDeStage(){
     this.router.navigate(['/demande-de-stage']);
@@ -74,9 +97,6 @@ export class SideBarComponent {
 
   }
 
-  goToDepartmentList(){
-    this.router.navigate(['/department-list']);
-  }
 
   goToUserList(){
     this.router.navigate(['/user-list']);

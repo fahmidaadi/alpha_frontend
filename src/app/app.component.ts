@@ -21,6 +21,11 @@ import { UserService } from './Services/user.service';
 import { AuthInterceptorService } from './Services/auth-interceptor.service';
 import { PopupMessageService } from './Services/popup-message.service';
 import { PopupMessageComponent } from "./Views/Shared/popup-message/popup-message.component";
+import { SupervisorService } from './Services/supervisor.service';
+import { ProjectService } from './Services/project.service';
+import { OrganismeService } from './Services/organisme.service';
+import { CollegeYearService } from './Services/college-year.service';
+import { ParcourService } from './Services/parcour.service';
 
 @Component({
     selector: 'app-root',
@@ -44,6 +49,12 @@ import { PopupMessageComponent } from "./Views/Shared/popup-message/popup-messag
         UserService,
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
         PopupMessageService,
+        SupervisorService , 
+        ProjectService , 
+        OrganismeService , 
+        CollegeYearService,
+        ParcourService,
+        
     ],
     imports: [
         RouterOutlet,
@@ -53,7 +64,9 @@ import { PopupMessageComponent } from "./Views/Shared/popup-message/popup-messag
         CreateInternshipComponent,
         HttpClientModule,
         DataTablesModule,
-        PopupMessageComponent
+        PopupMessageComponent,
+         
+
     ]
 })
 export class AppComponent {

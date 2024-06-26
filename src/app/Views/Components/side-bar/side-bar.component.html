@@ -35,6 +35,30 @@
       </a>
       <ul *ngIf="isSubMenuOpen" class="sub-menu">
         <li>
+          <a (click)="goToCollegeYearList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Années Universitaires</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToDepartmentList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Départements</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToParcourList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Parcours</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToInternshipTypeList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Types des Stages</span>
+          </a>
+        </li>
+        <li>
           <a (click)="goToTraining()">
             <mat-icon>build</mat-icon>
             <span class="nav-text"> Formations</span>
@@ -46,24 +70,33 @@
             <span class="nav-text">Niveau de Formations</span>
           </a>
         </li>
-        <li>
-          <a (click)="goToInternshipTypeList()">
-            <mat-icon>build</mat-icon>
-            <span class="nav-text"> Types des Stages</span>
-          </a>
-        </li>
+        
         <li>
           <a (click)="goToClassList()">
             <mat-icon>build</mat-icon>
             <span class="nav-text"> Classes</span>
           </a>
         </li>
+        
         <li>
-          <a (click)="goToDepartmentList()">
+          <a (click)="goToOrganismeList()">
             <mat-icon>build</mat-icon>
-            <span class="nav-text"> Départements</span>
+            <span class="nav-text"> Organismes</span>
           </a>
         </li>
+        <li>
+          <a (click)="goToProjectsList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Projets</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="goToSupervisorList()">
+            <mat-icon>build</mat-icon>
+            <span class="nav-text"> Encadrants</span>
+          </a>
+        </li>
+       
       </ul>
     </li>
     

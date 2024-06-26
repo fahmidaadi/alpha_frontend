@@ -1,0 +1,64 @@
+
+<div class="container">
+    <form (ngSubmit)="onSubmit(addOrganismeForm)" #addOrganismeForm="ngForm">
+      <div class="row">
+        <h4>Ajouter un Organisme</h4>
+
+
+        <label for="name">Libellé Organisme</label>
+        <div class="input-group input-group-icon">
+         <input type="text" placeholder="Libellé d'Organisme" name="name" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Libellé d Organisme est requis'" *ngIf="addOrganismeForm.controls['name'] && addOrganismeForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
+        
+        
+        <label for="tel">Téléphone d'Organisme</label>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Tel de Organisme" name="tel" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Tel de Organisme est requise'" *ngIf="addOrganismeForm.controls['tel'] && addOrganismeForm.controls['tel'].errors?.['required']" class="error-message"></app-ui-message>
+
+
+        <label for="fax">Fax d'Organisme</label>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Fax de Organisme" name="fax" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Fax de Organisme est requise'" *ngIf="addOrganismeForm.controls['fax'] && addOrganismeForm.controls['fax'].errors?.['required']" class="error-message"></app-ui-message>
+
+
+        <label for="adresse">Adresse d'Organisme</label>
+        <div class="input-group input-group-icon">
+          <input type="text" placeholder="Adresse de Organisme" name="adresse" ngModel [required]="true"/>
+          <div class="input-icon"><i class="fa fa-user"></i></div>
+        </div>
+        <app-ui-message [message]="'Adresse de Organisme est requise'" *ngIf="addOrganismeForm.controls['adresse'] && addOrganismeForm.controls['adresse'].errors?.['required']" class="error-message"></app-ui-message>
+
+
+
+      </div>
+      <div class="row">
+        <div class="col-half">
+          
+        </div>
+        <div class="col-half">
+          <div class="input-group">
+           
+  
+            
+            <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addOrganismeForm.invalid"></app-confirm-button>
+  
+            
+            <app-ui-message [message]="'Ajout avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+    
+            <app-ui-message [message]="'erreur d ajout'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+  
+  
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

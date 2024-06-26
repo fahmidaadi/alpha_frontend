@@ -1,122 +1,153 @@
 <div *ngIf="inspectedInternship" class="profile-container">
-    <div class="profile-card">
-      <h2>Détails du Stage de {{inspectedInternship.student.name}}</h2>
-  
-      <div class="container">
-        <div class="internship-details">
-          
-  
-          <!-- Internship Information Section -->
+  <div class="profile-card">
+    <h2>Détails du Stage de {{inspectedInternship.etudiant1_cin?.name }}  .  {{ inspectedInternship.etudiant2_cin?.name}} </h2>
+
+    <div class="container">
+      <div class="internship-details">
+        
+
+        <!-- Internship Information Section -->
+        <div class="accordion">
+          <input type="checkbox" id="toggle-internship" class="accordion-toggle">
+          <label for="toggle-internship" class="accordion-title">Informations du Stage</label>
+          <div class="accordion-content">
+            <table class="info-table">
+              <tr>
+                <td><strong>Type de Stage:</strong></td>
+                <td>{{selectedStudent?.classRoom?.trainingType?.internshipType?.lib_Type_Stage_fr}}</td>
+              </tr>
+              <tr>
+                <td><strong>Date Début:</strong></td>
+                <td>{{inspectedInternship.start_date.split('T')[0]}}</td>
+              </tr>
+              <tr>
+                <td><strong>Date Fin:</strong></td>
+                <td>{{inspectedInternship.end_date.split('T')[0]}}</td>
+              </tr>
+              <tr>
+                <td><strong>Status:</strong></td>
+                <td>{{inspectedInternship.status}}</td>
+              </tr>
+              <tr>
+                <td><strong>Evaluation:</strong></td>
+                <td>{{inspectedInternship.evaluation}}</td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Clickable section for Student -->
           <div class="accordion">
-            <input type="checkbox" id="toggle-internship" class="accordion-toggle">
-            <label for="toggle-internship" class="accordion-title">Informations du Stage</label>
+            <div>
+            <input type="checkbox" id="toggle-student" class="accordion-toggle">
+            <label for="toggle-student" class="accordion-title">Stagiaire : {{inspectedInternship.etudiant1_cin?.name}} <span class="accordion-toggle-label"></span></label>
             <div class="accordion-content">
               <table class="info-table">
                 <tr>
-                  <td><strong>Type de Stage:</strong></td>
-                  <td>{{inspectedInternship.student.classRoom.trainingType.internshipType.lib_Type_Stage_fr}}</td>
+                  <td><strong>CIN:</strong></td>
+                  <td>{{inspectedInternship.etudiant1_cin?.cin}}</td>
                 </tr>
                 <tr>
-                  <td><strong>Date Début:</strong></td>
-                  <td>{{inspectedInternship.start_date.split('T')[0]}}</td>
+                  <td><strong>E-mail:</strong></td>
+                  <td>{{inspectedInternship.etudiant1_cin?.email}}</td>
                 </tr>
                 <tr>
-                  <td><strong>Date Fin:</strong></td>
-                  <td>{{inspectedInternship.end_date.split('T')[0]}}</td>
+                  <td><strong>Date de Naissance:</strong></td>
+                  <td>{{inspectedInternship.etudiant1_cin?.dte_naiss!.split('T')[0]}}</td>
                 </tr>
                 <tr>
-                  <td><strong>Status:</strong></td>
-                  <td>{{inspectedInternship.status}}</td>
-                </tr>
-                <tr>
-                  <td><strong>Evaluation:</strong></td>
-                  <td>{{inspectedInternship.evaluation}}</td>
+                  <td><strong>Numéro Tel:</strong></td>
+                  <td>{{inspectedInternship.etudiant1_cin?.phone_nbr}}</td>
                 </tr>
               </table>
+              <button (click)="goToDemandeDeStageStudent1(inspectedInternship.stage_id!, inspectedInternship.etudiant1_cin?.cin!)" class="action-button">Demande de Stage {{inspectedInternship.etudiant1_cin?.name}}</button> 
+            <button (click)="goToLettreDaffectationStudent1(inspectedInternship.stage_id!, inspectedInternship.etudiant1_cin?.cin!)" class="action-button">Lettre d'affectation {{inspectedInternship.etudiant1_cin?.name}}</button> 
+            <button (click)="goToFicheReponseStudent1(inspectedInternship.stage_id!, inspectedInternship.etudiant1_cin?.cin!)" class="action-button">Fiche Réponse {{inspectedInternship.etudiant1_cin?.name}}</button>
+     
             </div>
+          </div>
+          <div *ngIf="inspectedInternship.etudiant2_cin">
+            <input type="checkbox" id="toggle-student2" class="accordion-toggle">
+            <label for="toggle-student2" class="accordion-title">Binome : {{inspectedInternship.etudiant2_cin.name}} <span class="accordion-toggle-label"></span></label>
+            <div class="accordion-content">
+              <table class="info-table">
+                <tr>
+                  <td><strong>CIN:</strong></td>
+                  <td>{{inspectedInternship.etudiant2_cin.cin}}</td>
+                </tr>
+                <tr>
+                  <td><strong>E-mail:</strong></td>
+                  <td>{{inspectedInternship.etudiant2_cin.email}}</td>
+                </tr>
+                <tr>
+                  <td><strong>Date de Naissance:</strong></td>
+                  <td>{{inspectedInternship.etudiant2_cin.dte_naiss.split('T')[0]}}</td>
+                </tr>
+                <tr>
+                  <td><strong>Numéro Tel:</strong></td>
+                  <td>{{inspectedInternship.etudiant2_cin.phone_nbr}}</td>
+                </tr>
+              </table>
+              <button *ngIf="inspectedInternship.etudiant2_cin" (click)="goToDemandeDeStageStudent2(inspectedInternship.stage_id!, inspectedInternship.etudiant2_cin.cin)" class="action-button">Demande de Stage {{inspectedInternship.etudiant2_cin.name}}</button> 
+              <button *ngIf="inspectedInternship.etudiant2_cin" (click)="goToLettreDaffectationStudent2(inspectedInternship.stage_id!, inspectedInternship.etudiant2_cin.cin)" class="action-button">Lettre d'affectation {{inspectedInternship.etudiant2_cin.name}}</button> 
+              <button *ngIf="inspectedInternship.etudiant2_cin" (click)="goToFicheReponseStudent2(inspectedInternship.stage_id!, inspectedInternship.etudiant2_cin.cin)" class="action-button">Fiche Réponse {{inspectedInternship.etudiant2_cin.name}}</button>
   
-            <!-- Clickable section for Student -->
+            </div>
+          </div>
+
+            <!-- Clickable section for Class -->
             <div class="accordion">
-              <input type="checkbox" id="toggle-student" class="accordion-toggle">
-              <label for="toggle-student" class="accordion-title">Stagiaire : {{inspectedInternship.student.name}} <span class="accordion-toggle-label"></span></label>
+              <input type="checkbox" id="toggle-class" class="accordion-toggle">
+              <label for="toggle-class" class="accordion-title">Classe : {{selectedStudent?.classRoom?.code_classe}} <span class="accordion-toggle-label"></span></label>
               <div class="accordion-content">
                 <table class="info-table">
                   <tr>
-                    <td><strong>CIN:</strong></td>
-                    <td>{{inspectedInternship.student.cin}}</td>
+                      <td><strong>Niveau:</strong></td>
+                      <td>{{selectedStudent?.classRoom?.trainingType?.lib_niveau_formation_fr}}</td>
+                    </tr>
+                  <tr>
+                    <td><strong>Nom de Classe:</strong></td>
+                    <td>{{selectedStudent?.classRoom?.lib_classe_fr}}</td>
                   </tr>
                   <tr>
-                    <td><strong>E-mail:</strong></td>
-                    <td>{{inspectedInternship.student.email}}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Date de Naissance:</strong></td>
-                    <td>{{inspectedInternship.student.dte_naiss.split('T')[0]}}</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Numéro Tel:</strong></td>
-                    <td>{{inspectedInternship.student.phone_nbr}}</td>
-                  </tr>
+                      <td><strong>Code de Classe:</strong></td>
+                      <td>{{selectedStudent?.classRoom?.code_classe}}</td>
+                    </tr>
                 </table>
               </div>
-  
-              <!-- Clickable section for Class -->
+
+              <!-- Clickable section for Department -->
               <div class="accordion">
-                <input type="checkbox" id="toggle-class" class="accordion-toggle">
-                <label for="toggle-class" class="accordion-title">Classe : {{inspectedInternship.student.classRoom.code_classe}} <span class="accordion-toggle-label"></span></label>
+                <input type="checkbox" id="toggle-department" class="accordion-toggle">
+                <label for="toggle-department" class="accordion-title">Département : {{selectedStudent?.classRoom?.trainingType?.training?.department?.lib_departement_fr }} <span class="accordion-toggle-label"></span></label>
                 <div class="accordion-content">
                   <table class="info-table">
                     <tr>
-                        <td><strong>Niveau:</strong></td>
-                        <td>{{inspectedInternship.student.classRoom.trainingType.training.lib_formation_fr}}</td>
-                      </tr>
-                    <tr>
-                      <td><strong>Nom de Classe:</strong></td>
-                      <td>{{inspectedInternship.student.classRoom.lib_classe_fr}}</td>
+                      <td><strong>Code de Département:</strong></td>
+                      <td>{{selectedStudent?.classRoom?.trainingType?.training?.department?.code_departement}}</td>
                     </tr>
-                    <tr>
-                        <td><strong>Code de Classe:</strong></td>
-                        <td>{{inspectedInternship.student.classRoom.code_classe}}</td>
-                      </tr>
                   </table>
                 </div>
-  
-                <!-- Clickable section for Department -->
-                <div class="accordion">
-                  <input type="checkbox" id="toggle-department" class="accordion-toggle">
-                  <label for="toggle-department" class="accordion-title">Département : {{inspectedInternship.student.classRoom.trainingType.training.department.lib_departement_fr}} <span class="accordion-toggle-label"></span></label>
-                  <div class="accordion-content">
-                    <table class="info-table">
-                      <tr>
-                        <td><strong>Code de Département:</strong></td>
-                        <td>{{inspectedInternship.student.classRoom.trainingType.training.department.code_departement}}</td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-  
-            </div>
-        </div>
-        
-        <div class="accordion">
-            <input type="checkbox" id="toggle-document" class="accordion-toggle">
-            <label for="toggle-document" class="accordion-title">Documents du Stage <span class="accordion-toggle-label"></span></label>
-            <div class="accordion-content">
-                
-  <button (click)="goToDemandeDeStage(inspectedInternship.stage_id!)" class="action-button">Demande de Stage</button>
-  <button (click)="goToLettreDaffectation(inspectedInternship.stage_id!)" class="action-button">Lettre d'affectation</button>
-  <button (click)="goToFicheReponse(inspectedInternship.stage_id!)" class="action-button">Fiche Réponse</button>
+              </div>
 
-            </div>
           </div>
+      </div>
+      
+      <div class="accordion">
+          <input type="checkbox" id="toggle-document" class="accordion-toggle">
+          <label for="toggle-document" class="accordion-title">Documents du Stage <span class="accordion-toggle-label"></span></label>
+          <div class="accordion-content">
+              
             
+           
           </div>
         </div>
-      </div>
-  
-      <div class="center-button">
-        <a [href]="['/internship-list']" routerLinkActive="router-link-active" class="button">Retour</a>
+          
+        </div>
       </div>
     </div>
+
+    <div class="center-button">
+      <a [href]="['/internship-list']" routerLinkActive="router-link-active" class="button">Retour</a>
+    </div>
   </div>
-  
+</div>

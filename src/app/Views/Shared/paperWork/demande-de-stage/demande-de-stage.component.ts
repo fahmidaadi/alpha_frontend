@@ -5,6 +5,8 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Internship } from '../../../../Models/internship';
 import { InternshipService } from '../../../../Services/internship.service';
+import { Student } from '../../../../Models/student';
+import { StudentService } from '../../../../Services/student.service';
 
 @Component({
   selector: 'app-demande-de-stage',
@@ -17,60 +19,78 @@ import { InternshipService } from '../../../../Services/internship.service';
 export class DemandeDeStageComponent {
 
   internship: Internship | undefined;
+  student: Student | undefined;
   formattedDate: string | null;
   errorMessage: string | null = null;
-   currentYear = new Date().getFullYear();
-
+  currentYear = new Date().getFullYear();
 
   constructor(
     private datePipe: DatePipe,
     private route: ActivatedRoute,
     private router: Router,
-    private internshipService: InternshipService
+    private internshipService: InternshipService,
+    private studentService : StudentService
   ) {
     const now = new Date();
     this.formattedDate = this.datePipe.transform(now, 'dd/MM/yyyy');
-
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const internshipId = +params['internshipId'];
-      if (internshipId) {
+      const etudiantCin = params['etudiantCin']; 
+    
+      console.log(internshipId + " + " + etudiantCin);
+    
+      if (internshipId && etudiantCin) {
         this.fetchInternshipDataById(internshipId);
+        this.fetchStudentDataById(etudiantCin);
       } else {
-        console.error('No internshipId found in route parameters');
+        console.error('No internshipId or etudiantCin found in route parameters');
       }
     });
+  }
+
+  fetchStudentDataById(etudiantCin: number): void {
+    this.studentService.getStudentById(etudiantCin.toString()).subscribe(
+      student => {
+        if (student) {
+          this.student = student;
+          // Here you can also fetch additional data using etudiant1Cin if needed
+          // Example: this.fetchStudentByCin(etudiant1Cin);
+        } else {
+          this.errorMessage = 'Error fetching student data';
+        }
+      },
+      error => {
+        console.error('Error fetching student', error);
+        this.errorMessage = 'Error fetching student';
+      }
+    );
   }
 
   fetchInternshipDataById(internshipId: number): void {
     this.internshipService.getInternshipById(internshipId.toString()).subscribe(
       internship => {
         if (internship) {
-          this.internship = internship; // Directly assigning the fetched student
+          this.internship = internship;
+          // Here you can also fetch additional data using etudiant1Cin if needed
+          // Example: this.fetchStudentByCin(etudiant1Cin);
         } else {
-          this.errorMessage = 'Error fetching student data';
+          this.errorMessage = 'Error fetching internship data';
         }
       },
       error => {
         console.error('Error fetching internship', error);
         this.errorMessage = 'Error fetching internship';
       }
-    );}
+    );
+  }
 
-
-
-
-
-
-
-  exportToPDF() {
-    // Sélectionner l'élément à capturer
+  exportToPDF(): void {
     const element = document.getElementById('pdf-content');
 
     if (element) {
-      // Utiliser html2canvas pour capturer l'élément en image
       html2canvas(element).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF({
@@ -78,15 +98,13 @@ export class DemandeDeStageComponent {
           unit: 'mm',
           format: 'a4'
         });
-        
-        const imgWidth = 210; // Largeur A4 en mm
-        const pageHeight = 295; // Hauteur A4 en mm
+
+        const imgWidth = 210; // A4 width in mm
+        const pageHeight = 295; // A4 height in mm
         const imgHeight = canvas.height * imgWidth / canvas.width;
         let heightLeft = imgHeight;
-
         let position = 0;
 
-        // Ajouter l'image au PDF
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
 
@@ -97,7 +115,6 @@ export class DemandeDeStageComponent {
           heightLeft -= pageHeight;
         }
 
-        // Sauvegarder le PDF
         pdf.save('demande-stage.pdf');
       });
     }

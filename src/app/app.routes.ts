@@ -24,6 +24,15 @@ import { AddDepartmentComponent } from './Views/Components/department/add-depart
 import { AddInternshipComponent } from './Views/Components/internship/add-internship/add-internship.component';
 import { InspectInternshipComponent } from './Views/Components/internship/inspect-internship/inspect-internship.component';
 import { UserListComponent } from './Views/Components/user/user-list/user-list.component';
+import { OrganismeListComponent } from './Views/Components/organisme/organisme-list/organisme-list.component';
+import { AddOrganismeComponent } from './Views/Components/organisme/add-organisme/add-organisme.component';
+import { ProjectsListComponent } from './Views/Components/projects/projects-list/projects-list.component';
+import { SupervisorListComponent } from './Views/Components/supervisor/supervisor-list/supervisor-list.component';
+import { CollegeYearListComponent } from './Views/Components/collegeYear/college-year-list/college-year-list.component';
+import { AddCollegeYearComponent } from './Views/Components/collegeYear/add-college-year/add-college-year.component';
+import { ParcourListComponent } from './Views/Components/parcour/parcour-list/parcour-list.component';
+import { AddParcourComponent } from './Views/Components/parcour/add-parcour/add-parcour.component';
+import { AddSupervisorComponent } from './Views/Components/supervisor/add-supervisor/add-supervisor.component';
 
 export const routes: Routes = [
   {
@@ -133,7 +142,7 @@ export const routes: Routes = [
     //canActivate: [AuthGuard]
   },
   {
-    path: 'demande-de-stage/:internshipId',
+    path: 'demande-de-stage/:internshipId/:etudiantCin',
     component: DemandeDeStageComponent,
     //canActivate: [AuthGuard]
   },
@@ -143,7 +152,7 @@ export const routes: Routes = [
     //canActivate: [AuthGuard]
   },
   {
-    path: 'lettre-affectation/:internshipId',
+    path: 'lettre-affectation/:internshipId/:etudiantCin',
     component: LettreAffectationComponent,
     //canActivate: [AuthGuard]
   },
@@ -153,7 +162,7 @@ export const routes: Routes = [
     //canActivate: [AuthGuard]
   },
   {
-    path: 'fiche-reponse/:internshipId',
+    path: 'fiche-reponse/:internshipId/:etudiantCin',
     component: FicheReponseComponent,
     //canActivate: [AuthGuard]
   },
@@ -165,6 +174,58 @@ export const routes: Routes = [
   {
     path: 'department-list/add',
     component: AddDepartmentComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'organisme-list',
+    component: OrganismeListComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'organisme-list/add',
+    component: AddOrganismeComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'projects-list',
+    component: ProjectsListComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'projects-list/add',
+    component: ProjectsListComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'supervisor-list',
+    component: SupervisorListComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'supervisor-list/add',
+    component: AddSupervisorComponent,
+    //canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'college-year-list',
+    component: CollegeYearListComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'college-year-list/add',
+    component: AddCollegeYearComponent,
+    //canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'parcour-list',
+    component: ParcourListComponent,
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: 'parcour-list/add',
+    component: AddParcourComponent,
     //canActivate: [AuthGuard]
   },
  

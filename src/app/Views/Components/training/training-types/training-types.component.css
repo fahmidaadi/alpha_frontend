@@ -533,7 +533,7 @@ table {
     transform: translate(-50%, -50%);
   }
   select {
-    height: 3.4em;
+    height: 4em;
     line-height: 1;
   }
   select:first-of-type {

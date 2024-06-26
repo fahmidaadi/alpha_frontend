@@ -1,0 +1,87 @@
+<div>
+    <h2 style="text-align: center" [hidden]="!showUpdateForm">
+      Modifier {{ selectedParcour?.lib_parcour_fr  }}
+    </h2>
+    <div [hidden]="showUpdateForm">
+      <h2>Liste des Parcours</h2>
+      <app-add-button class="AddTraining" (click)="AddCollegeYear()"></app-add-button>
+      <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+    </div>
+  
+    <div [hidden]="!showUpdateForm">
+      <div class="container">
+        <form #updateParcourForm="ngForm" (ngSubmit)="onFormSubmit(updateParcourForm)">
+          <div class="row">
+            <h4>Modifier un Parcour</h4>
+  
+  
+            <label for="code">Code Parcour</label>
+            <div class="input-group input-group-icon">
+              <input 
+                type="text" 
+                name="code" 
+                placeholder="Code du Parcour" 
+                ngModel 
+                [required]="true" 
+              />
+              <div class="input-icon"><i class="fa fa-calendar"></i></div>
+            </div>
+            <app-ui-message 
+              [message]="'Code Parcour est requis '" 
+              *ngIf="updateParcourForm.controls['code'] && updateParcourForm.controls['code'].errors?.['required']" 
+              class="error-message"
+            ></app-ui-message>
+            
+  
+            <label for="name">Libellé Parcour</label>
+            <div class="input-group input-group-icon">
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Libellé du Parcour" 
+                ngModel 
+                [required]="true" 
+              />
+              <div class="input-icon"><i class="fa fa-calendar"></i></div>
+            </div>
+            <app-ui-message 
+              [message]="'Libellé Parcour est requis'" 
+              *ngIf="updateParcourForm.controls['code'] && updateParcourForm.controls['code'].errors?.['required']" 
+              class="error-message"
+            ></app-ui-message>
+            
+
+
+          </div>
+  
+          <div class="row">
+            <div class="col-half">
+              <div class="input-group">
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+              </div>
+            </div>
+            <div class="col-half">
+  
+              <div class="input-group">
+  
+  
+                <app-confirm-button type="submit" class="app-confirm-button"
+                  [disabled]="updateParcourForm.invalid"></app-confirm-button>
+  
+                <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                  class="success-message"></app-ui-message>
+  
+                <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                  class="error-message"></app-ui-message>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

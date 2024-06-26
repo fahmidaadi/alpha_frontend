@@ -5,6 +5,8 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Internship } from '../../../../Models/internship';
 import { InternshipService } from '../../../../Services/internship.service';
+import { Student } from '../../../../Models/student';
+import { StudentService } from '../../../../Services/student.service';
 
 @Component({
   selector: 'app-lettre-affectation',
@@ -17,6 +19,7 @@ import { InternshipService } from '../../../../Services/internship.service';
 export class LettreAffectationComponent {
 
   internship: Internship | undefined;
+  student : Student | undefined;
   formattedDate: string | null;
   errorMessage: string | null = null;
    currentYear = new Date().getFullYear();
@@ -26,7 +29,8 @@ export class LettreAffectationComponent {
     private datePipe: DatePipe,
     private route: ActivatedRoute,
     private router: Router,
-    private internshipService: InternshipService
+    private internshipService: InternshipService,
+    private studentService  : StudentService
   ) {
     const now = new Date();
     this.formattedDate = this.datePipe.transform(now, 'dd/MM/yyyy');
@@ -36,12 +40,35 @@ export class LettreAffectationComponent {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const internshipId = +params['internshipId'];
-      if (internshipId) {
+      const etudiantCin = params['etudiantCin']; 
+    
+      console.log(internshipId + " + " + etudiantCin);
+    
+      if (internshipId && etudiantCin) {
         this.fetchInternshipDataById(internshipId);
+        this.fetchStudentDataById(etudiantCin);
       } else {
-        console.error('No internshipId found in route parameters');
+        console.error('No internshipId or etudiantCin found in route parameters');
       }
     });
+  }
+
+  fetchStudentDataById(etudiantCin: number): void {
+    this.studentService.getStudentById(etudiantCin.toString()).subscribe(
+      student => {
+        if (student) {
+          this.student = student;
+          // Here you can also fetch additional data using etudiant1Cin if needed
+          // Example: this.fetchStudentByCin(etudiant1Cin);
+        } else {
+          this.errorMessage = 'Error fetching student data';
+        }
+      },
+      error => {
+        console.error('Error fetching student', error);
+        this.errorMessage = 'Error fetching student';
+      }
+    );
   }
 
   fetchInternshipDataById(internshipId: number): void {

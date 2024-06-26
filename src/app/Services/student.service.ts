@@ -42,7 +42,6 @@ export class StudentService {
   ) {}
 
 
-/////   change the getters by id to handle the fork join later 
 
 
   // Get students
@@ -152,7 +151,7 @@ export class StudentService {
               mergeMap(trainingType => {
                 classRoom.trainingType = trainingType;
                 // Fetch the associated training
-                return this.trainingService.getTrainingById(trainingType.formation_id!.toString()).pipe(
+                return this.trainingService.getTrainingById(classRoom.trainingType.formation_id!.toString()).pipe(
                   mergeMap(training => {
                     trainingType.training = training;
                     // Fetch the associated internship type

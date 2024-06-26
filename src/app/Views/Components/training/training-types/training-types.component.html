@@ -15,6 +15,7 @@
         <div class="row">
           <h4>Modifier un Niveau de Formation</h4>
 
+          <label for="code">Code niveau de Formation</label>
           <div class="input-group input-group-icon">
             <input type="text" placeholder="Code niveau de Formation" name="code" ngModel [required]="true" />
             <div class="input-icon"><i class="fa fa-user"></i></div>
@@ -22,15 +23,17 @@
           <app-ui-message [message]="'Code niveau de Formation est requis'"
             *ngIf="updateTrainingTypeForm.controls['code'] && updateTrainingTypeForm.controls['code'].errors?.['required']"
             class="error-message"></app-ui-message>
+
+            <label for="name">Libellé Niveau de Formation</label>
           <div class="input-group input-group-icon">
-            <input type="text" placeholder="Niveau Formation" name="name" ngModel [required]="true" />
+            <input type="text" placeholder=" Libellé Niveau de Formation" name="name" ngModel [required]="true" />
             <div class="input-icon"><i class="fa fa-user"></i></div>
           </div>
           <app-ui-message [message]="'Niveau de Formation est requis'"
             *ngIf="updateTrainingTypeForm.controls['name'] && updateTrainingTypeForm.controls['name'].errors?.['required']"
             class="error-message"></app-ui-message>
 
-          <!-- Updated part -->
+            <label for="training">Formation</label>
           <div class="input-group input-group-icon">
             <select name="training" ngModel [required]="true" class="form-control">
               <option *ngFor="let loadedTraining of loadedTrainings" [value]="loadedTraining.formation_id">{{ loadedTraining.lib_formation_fr }}</option>
@@ -40,8 +43,8 @@
           <app-ui-message [message]="'La Formation est requise'"
             *ngIf="updateTrainingTypeForm.controls['training'] && updateTrainingTypeForm.controls['training'].errors?.['required']"
             class="error-message"></app-ui-message>
-          <!-- End of Updated part -->
-
+         
+            <label for="internshipType">Type de Stage</label>
           <div class="input-group input-group-icon">
             <select name="internshipType" ngModel [required]="true" class="form-control">
               <option *ngFor="let loadedInternshipType of loadedInternshipTypes" [value]="loadedInternshipType.type_stage_id">{{ loadedInternshipType.lib_Type_Stage_fr }}</option>
@@ -50,6 +53,18 @@
           </div>
           <app-ui-message [message]="'Le type de stage est requis'"
             *ngIf="updateTrainingTypeForm.controls['training'] && updateTrainingTypeForm.controls['training'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+
+            <label for="parcour">Parcour</label>
+          <div class="input-group input-group-icon">
+            <select name="parcour" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedParcour of loadedParcours" [value]="loadedParcour.parcour_id">{{ loadedParcour.lib_parcour_fr }}</option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'Parcour est requis'"
+            *ngIf="updateTrainingTypeForm.controls['parcour'] && updateTrainingTypeForm.controls['parcour'].errors?.['required']"
             class="error-message"></app-ui-message>
 
         </div>

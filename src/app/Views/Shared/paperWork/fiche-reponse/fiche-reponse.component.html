@@ -78,11 +78,11 @@
                 </p>
 
                 <p>
-                    RESPONSABLE-STAGE
+                    {{internship?.supervisor?.name}}
                 </p>
 
                 <p>
-                    <strong>Tél :</strong> TEL-ORGANISME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <strong>Tél :</strong> {{internship?.supervisor?.contact_info}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <strong>Fax :</strong> FAX-ORGANISME &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <strong>E-mail :</strong> EMAIL-ORGANISME
                 </p>
@@ -99,21 +99,21 @@
                 <table>
                     <tr>
                         <td><strong>Nom et Prénom :</strong></td>
-                        <td style="padding-left: 20px;">{{ internship?.student?.name }}</td>
+                        <td style="padding-left: 20px;">{{ student?.name }}</td>
                         <td style="padding-left: 100px;"><strong>CIN :</strong></td>
-                        <td style="padding-left: 20px;">{{ internship?.student?.cin }}</td>
+                        <td style="padding-left: 20px;">{{ student?.cin }}</td>
                     </tr>
                     <tr>
                         <td><strong>Tél :</strong></td>
-                        <td style="padding-left: 20px;">{{ internship?.student?.phone_nbr }}</td>
+                        <td style="padding-left: 20px;">{{ student?.phone_nbr }}</td>
                         <td style="padding-left: 100px;"><strong>E-mail :</strong></td>
-                        <td style="padding-left: 20px;">{{ internship?.student?.email }}</td>
+                        <td style="padding-left: 20px;">{{ student?.email }}</td>
                     </tr>
                     <tr>
                         <td><strong>Département :</strong></td>
-                        <td style="padding-left: 20px;">{{ internship?.student?.classRoom?.trainingType?.training?.department?.lib_departement_fr }}</td>
+                        <td style="padding-left: 20px;">{{ student?.classRoom?.trainingType?.training?.department?.lib_departement_fr }}</td>
                         <td style="padding-left: 100px;"><strong>Classe :</strong></td>
-                        <td style="padding-left: 20px;" >{{ internship?.student?.classRoom?.lib_classe_fr }}</td>
+                        <td style="padding-left: 20px;" >{{ student?.classRoom?.lib_classe_fr }}</td>
                     </tr>
                 </table>
                 

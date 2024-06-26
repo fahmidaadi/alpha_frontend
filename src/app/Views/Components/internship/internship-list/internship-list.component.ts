@@ -85,6 +85,31 @@ export class InternshipListComponent {
     this.loadStudents();
     this.loadTrainingTypes();
     this.dtOptions = {
+      language: {
+        "emptyTable": "Aucune donnée disponible dans le tableau",
+    "loadingRecords": "Chargement...",
+    "processing": "Traitement...",
+    "decimal": ",",
+    "info": "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+    "infoEmpty": "Affichage de 0 à 0 sur 0 entrées",
+    "infoFiltered": "(filtrées depuis un total de _MAX_ entrées)",
+    "lengthMenu": "Afficher _MENU_ entrées",
+    "paginate": {
+        "first": "Première",
+        "last": "Dernière",
+        "next": "Suivante",
+        "previous": "Précédente"
+    },
+    "zeroRecords": "Aucune entrée correspondante trouvée",
+    "aria": {
+        "sortAscending": " : activer pour trier la colonne par ordre croissant",
+        "sortDescending": " : activer pour trier la colonne par ordre décroissant"
+    },
+    "search": "Rechercher :",
+    "thousands": " "   
+      },
+
+
       ajax: (dataTablesParameters: any, callback) => {
         this.internshipService.getInternships().subscribe(
           
@@ -96,12 +121,14 @@ export class InternshipListComponent {
                 end_date: internship.end_date.split('T')[0],
                 status : internship.status,
                 evaluation : internship.evaluation,
-                student : internship.student.name,
+                etudiants: internship.Etudiants.map(student => student.name).join(', '), // Combine student names
                 classRoom: internship.classRoom.code_classe,
-                trainingType: internship.trainingType.lib_niveau_formation_fr,
+                trainingType: internship.trainingType!.lib_niveau_formation_fr,
+                encadrant : internship.supervisor?.name,
                 actions: this.renderActions(internship),
               })),
             });
+            console.log(data)
           },
           (error) => {
             console.error('Error fetching internships', error);
@@ -114,13 +141,14 @@ export class InternshipListComponent {
           data: 'stage_id',
         },
         {
-          title: 'Stagiaire',
-          data: 'student',
+          title: 'Stagiaires',
+          data: 'etudiants',
         },
         {
           title: 'Classe',
           data: 'classRoom',
         },
+        
         {
           title: 'Date Début',
           data: 'start_date',
@@ -246,7 +274,7 @@ export class InternshipListComponent {
     }
 
     this.dialogService
-      .showConfirmDialog("le Stage de "+ internship.student.name)
+      .showConfirmDialog("le Stage de "+ internship.etudiant1_cin?.name + " et "+ internship.etudiant1_cin?.name)
       .then((confirmed) => {
         if (confirmed) {
           this.internshipService.deleteInternship(internship.stage_id).subscribe(
@@ -291,7 +319,9 @@ export class InternshipListComponent {
         end_date: form.value.end_date,
         status: form.value.status,
         evaluation: form.value.evaluation,
-        etudiant_cin: form.value.etudiant_cin,
+        etudiant1_cin: form.value.etudiant_cin,
+        etudiant2_cin: form.value.etudiant_cin,
+
         classe_id: form.value.classe_id,
         niveau_formation_id: form.value.niveau_formation_id,
       };
@@ -342,7 +372,10 @@ export class InternshipListComponent {
         end_date: internship.end_date.split('T')[0],
         status: internship.status,
         evaluation: internship.evaluation,
-        etudiant_cin: internship.etudiant_cin,
+
+        etudiant1_cin: internship.etudiant1_cin?.cin,
+        etudiant2_cin: internship.etudiant1_cin?.cin,
+
         classe_id: internship.classe_id,
         niveau_formation_id: internship.niveau_formation_id
       });

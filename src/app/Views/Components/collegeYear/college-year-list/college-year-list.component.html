@@ -1,0 +1,74 @@
+<div>
+    <h2 style="text-align: center" [hidden]="!showUpdateForm">
+      Modifier {{ selectedCollegeYear?.annee_universitaire  }}
+    </h2>
+    <div [hidden]="showUpdateForm">
+      <h2>Liste des Années Universitaires</h2>
+      <app-add-button class="AddTraining" (click)="AddCollegeYear()"></app-add-button>
+      <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+    </div>
+  
+    <div [hidden]="!showUpdateForm">
+      <div class="container">
+        <form #updateCollegeYearForm="ngForm" (ngSubmit)="onFormSubmit(updateCollegeYearForm)">
+          <div class="row">
+            <h4>Modifier une Année Universitaire</h4>
+  
+  
+  
+            <label for="collegeYear">Libellé d'année Universitaire</label>
+            <div class="input-group input-group-icon">
+              <input 
+                type="text" 
+                id="collegeYear" 
+                name="name" 
+                placeholder="Libellé du Année Universitaire" 
+                ngModel 
+                [required]="true" 
+                maxlength="9" 
+                pattern="^20\d{2}-20\d{2}$" 
+                title="L'année universitaire doit être au format 20xx-20xx, par exemple 2023-2024"
+              />
+              <div class="input-icon"><i class="fa fa-calendar"></i></div>
+            </div>
+            <app-ui-message 
+              [message]="'Libellé Année Universitaire est requis et doit être au format 20xx-20xx'" 
+              *ngIf="updateCollegeYearForm.controls['name'] && updateCollegeYearForm.controls['name'].errors?.['required'] || updateCollegeYearForm.controls['name'].errors?.['pattern']" 
+              class="error-message"
+            ></app-ui-message>
+            
+
+
+          </div>
+  
+          <div class="row">
+            <div class="col-half">
+              <div class="input-group">
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+              </div>
+            </div>
+            <div class="col-half">
+  
+              <div class="input-group">
+  
+  
+                <app-confirm-button type="submit" class="app-confirm-button"
+                  [disabled]="updateCollegeYearForm.invalid"></app-confirm-button>
+  
+                <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                  class="success-message"></app-ui-message>
+  
+                <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                  class="error-message"></app-ui-message>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

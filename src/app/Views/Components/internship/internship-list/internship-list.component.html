@@ -1,6 +1,6 @@
 <div>
   <h2 class="title" [hidden]="!showUpdateForm">
-    Modifier le Stage de <strong> {{ selectedInternship?.student?.name }} </strong>
+    Modifier le Stage de <strong> {{ selectedInternship?.etudiant1_cin?.name + " et " + selectedInternship?.etudiant2_cin?.name }} </strong>
   </h2>
   <div [hidden]="showUpdateForm">
     <h2 class="title">Liste des Stages</h2>
