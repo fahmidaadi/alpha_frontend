@@ -1,6 +1,6 @@
 export interface Parcour {
-    parcour_id? : number ;
-    code_parcour : string ;
-    lib_parcour_fr : string ;
+    parcours_id? : number ;
+    code_parcours : string ;
+    lib_parcours_fr : string ;
     
 }

@@ -13,6 +13,10 @@ import { TrainingTypeService } from '../../../../Services/training-type.service'
 import { Student } from '../../../../Models/student';
 import { TrainingType } from '../../../../Models/training-type';
 import { PopupMessageService } from '../../../../Services/popup-message.service';
+import { ProjectService } from '../../../../Services/project.service';
+import { Project } from '../../../../Models/project';
+import { Supervisor } from '../../../../Models/supervisor';
+import { SupervisorService } from '../../../../Services/supervisor.service';
 
 @Component({
   selector: 'app-add-internship',
@@ -31,6 +35,12 @@ export class AddInternshipComponent {
   loadedClassRooms : ClassRoom[] = [];
   loadedStudents : Student[] = [];
   loadedTrainingTypes: TrainingType[] = [];
+  loadedProjects : Project[]= [];
+  loadedSupervisors : Supervisor[]= [];
+
+  selectedClassroomId: number | null = null;
+  filteredStudents: Student[] = [];
+
 
   students: {
     selectedStudentCin: string;
@@ -47,10 +57,12 @@ export class AddInternshipComponent {
 
   constructor(
     private internshipService: InternshipService,
-    private dialogService: DialogService,
     private classRoomService : ClassService,
     private studentService : StudentService,
     private trainingTypeService : TrainingTypeService,
+    private projectService: ProjectService,
+    private supervisorService : SupervisorService,
+    private dialogService: DialogService,
     private datePipe : DatePipe,
     private popupMessageService: PopupMessageService,
   ) {}
@@ -59,6 +71,10 @@ export class AddInternshipComponent {
     this.loadClassRooms();
     this.loadStudents();
     this.loadTrainingTypes();
+    this.loadProjects();
+    this.loadSupervisors();
+    
+    
 
   }
 
@@ -78,6 +94,40 @@ export class AddInternshipComponent {
     this.studentService.getStudents().subscribe(
       (students: Student[]) => {
         this.loadedStudents = students;
+      },
+      (error) => {
+        console.error('Error fetching students', error);
+        this.errorMessage = 'Error loading students!';
+      }
+    );
+  }
+
+  private filterStudentsByClassroom(): void {
+    if (this.selectedClassroomId) {
+        this.filteredStudents = this.loadedStudents.filter(student => 
+           student.classe_id === Number(this.selectedClassroomId)
+        );
+      } else {
+        console.log('no students filtred')
+    }
+}
+
+  private loadSupervisors(): void {
+    this.supervisorService.getSupervisors().subscribe(
+      (supervisors: Supervisor[]) => {
+        this.loadedSupervisors = supervisors;
+      },
+      (error) => {
+        console.error('Error fetching supervisors', error);
+        this.errorMessage = 'Error loading supervisors!';
+      }
+    );
+  }
+  
+  private loadProjects(): void {
+    this.projectService.getProjects().subscribe(
+      (projects: Project[]) => {
+        this.loadedProjects = projects;
       },
       (error) => {
         console.error('Error fetching students', error);
@@ -107,11 +157,15 @@ export class AddInternshipComponent {
   onStudentChange(selectedStudentCin: string, index: number): void {
     const selectedStudent = this.loadedStudents.find(student => student.cin.toString() === selectedStudentCin);
     if (selectedStudent) {
-      // Update selected classroom and training type based on student
       this.students[index].selectedStudentClassroomId = selectedStudent.classe_id;
       this.students[index].selectedStudentTrainingTypeId = selectedStudent.classRoom.niveau_formation_id;
     }
   }
+
+  onClassroomChange(): void {
+    this.filterStudentsByClassroom();
+}
+  
 
   onSubmit(form: NgForm): void {
     // Check if the form is valid and there are students selected
@@ -130,25 +184,23 @@ export class AddInternshipComponent {
       const internshipData = {
         start_date: startDate,
         end_date: endDate,
+        date_soutenance : form.value.date_soutenance,
         status: form.value.status,
         evaluation: form.value.evaluation,
-        classe_id: student.selectedStudentClassroomId,
+        classe_id: form.value.classe_id,
         niveau_formation_id: student.selectedStudentTrainingTypeId,
-        encadrant_id: 1 ,
-
+        project_id : form.value.project_id,
+        encadrant_id: form.value.encadrant_id,
+        
         etudiants: studentCins,
-
-        Etudiants :form.value.status,
 
         classRoom : form.value.status,
         trainingType : form.value.status,
         supervisor : form.value.status,
-        etudiant1_cin : form.value.status ,
-        etudiant2_cin : form.value.status ,
+        
 
     };
 
-    console.log("Data being sent to the API:", JSON.stringify(internshipData, null, 2));
 
   
       // Send the internship data to the backend service

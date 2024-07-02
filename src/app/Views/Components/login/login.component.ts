@@ -19,7 +19,11 @@ export class LoginComponent {
 
   user: User = {
     username: '',
-    password: ''
+    password: '',
+    firstname : '',
+    lastname : '' ,
+    email : '',
+    user_type : 0 ,
   };
 
   errorMessage: string = '';

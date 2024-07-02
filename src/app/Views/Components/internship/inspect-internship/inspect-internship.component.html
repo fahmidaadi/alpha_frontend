@@ -1,6 +1,8 @@
 <div *ngIf="inspectedInternship" class="profile-container">
   <div class="profile-card">
-    <h2>Détails du Stage de {{inspectedInternship.etudiant1_cin?.name }}  .  {{ inspectedInternship.etudiant2_cin?.name}} </h2>
+
+    <h2 *ngIf="inspectedInternship.etudiant2_cin" >Détails du Stage de {{inspectedInternship.etudiant1_cin?.name  }}     {{"et "+inspectedInternship.etudiant2_cin?.name  }} </h2>
+    <h2 *ngIf="!inspectedInternship.etudiant2_cin">Détails du Stage de {{inspectedInternship.etudiant1_cin?.name  }}  </h2>
 
     <div class="container">
       <div class="internship-details">
@@ -23,6 +25,10 @@
               <tr>
                 <td><strong>Date Fin:</strong></td>
                 <td>{{inspectedInternship.end_date.split('T')[0]}}</td>
+              </tr>
+              <tr>
+                <td><strong>Date Soutenance:</strong></td>
+                <td>{{inspectedInternship.date_soutenance.split('T')[0]}}</td>
               </tr>
               <tr>
                 <td><strong>Status:</strong></td>
@@ -133,13 +139,71 @@
       </div>
       
       <div class="accordion">
-          <input type="checkbox" id="toggle-document" class="accordion-toggle">
-          <label for="toggle-document" class="accordion-title">Documents du Stage <span class="accordion-toggle-label"></span></label>
+          <input type="checkbox" id="toggle-project" class="accordion-toggle">
+          <label for="toggle-project" class="accordion-title">Projet : {{inspectedInternship.project?.title}} <span class="accordion-toggle-label"></span></label>
           <div class="accordion-content">
-              
-            
-           
+            <table class="info-table">
+              <tr>
+                <td><strong>Description :</strong></td>
+                <td>{{inspectedInternship.project?.description}}</td>
+              </tr>
+              <tr>
+                <td><strong>Status:</strong></td>
+                <td>{{inspectedInternship.project?.status}}</td>
+              </tr>
+             
+            </table>
           </div>
+          <input type="checkbox" id="toggle-organisme" class="accordion-toggle">
+          <label for="toggle-organisme" class="accordion-title">Organisme : {{inspectedInternship.project?.organisme?.lib_organisme}} <span class="accordion-toggle-label"></span></label>
+          <div class="accordion-content">
+            <table class="info-table">
+              <tr>
+                <td><strong>Numéro Téléphone :</strong></td>
+                <td>{{inspectedInternship.project?.organisme?.tel}}</td>
+              </tr>
+              <tr>
+                <td><strong>Fax:</strong></td>
+                <td>{{inspectedInternship.project?.organisme?.fax}}</td>
+              </tr>
+              <tr>
+                <td><strong>E-mail:</strong></td>
+                <td>{{inspectedInternship.project?.organisme?.email}}</td>
+              </tr>
+              <tr>
+                <td><strong>Adresse:</strong></td>
+                <td>{{inspectedInternship.project?.organisme?.adresse}}</td>
+              </tr>
+              <tr>
+                <td><strong>Site Web:</strong></td>
+                <td>{{inspectedInternship.project?.organisme?.site_web}}</td>
+              </tr>
+              <tr>
+                <td><strong>Localisation:</strong></td>
+                <td>{{inspectedInternship.project?.organisme?.geoloc}}</td>
+              </tr>
+             
+            </table>
+          </div>
+
+
+            <input type="checkbox" id="toggle-supervisor" class="accordion-toggle">
+          <label for="toggle-supervisor" class="accordion-title">Encadrant : {{inspectedInternship.supervisor.name}} <span class="accordion-toggle-label"></span></label>
+          <div class="accordion-content">
+            <table class="info-table">
+              <tr>
+                <td><strong>Contact Info :</strong></td>
+                <td>{{inspectedInternship.supervisor.contact_info}}</td>
+              </tr>
+              <tr>
+                <td><strong>Email :</strong></td>
+                <td>{{inspectedInternship.supervisor.email}}</td>
+              </tr>
+            </table>
+          </div>
+
+
+
         </div>
           
         </div>

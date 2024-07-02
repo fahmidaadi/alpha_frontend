@@ -87,6 +87,10 @@ export class UserListComponent {
               data: data.map((user) => ({
                 username : user.username,
                 password: user.password,
+                firstname : user.firstname,
+                lastname : user.lastname,
+                email : user.email ,
+                user_type : user.userType?.lib_user_type,
                 actions: this.renderActions(user),
               })),
             });
@@ -104,6 +108,22 @@ export class UserListComponent {
         {
           title: 'Mot de Passe',
           data: 'password',
+        },
+        {
+          title: 'Nom',
+          data: 'firstname',
+        },
+        {
+          title: 'Prénom',
+          data: 'lastname',
+        },
+        {
+          title: 'E-mail',
+          data: 'email',
+        },
+        {
+          title: "Type d'Utilisateur",
+          data: 'user_type',
         },
         {
           title: 'Actions',
@@ -182,6 +202,10 @@ export class UserListComponent {
       this.updateUserForm.form.patchValue({
         username: user.username,
         password: user.password,
+        firstname : user.firstname ,
+        lastname : user.lastname , 
+        email : user.email ,
+        user_type : user.user_type ,
       });
     }
   }
@@ -197,8 +221,12 @@ export class UserListComponent {
   onFormSubmit(form: NgForm): void {
     if (form.valid) {
       const updatedUserData = {
-        username: form.value.username,
-        password: form.value.password,
+        username : form.value.username,
+        password : form.value.password,
+        firstname: form.value.firstname ,
+        lastname : form.value.lastname , 
+        email    : form.value.email ,
+        user_type : form.value.user_type ,
 
       };
 

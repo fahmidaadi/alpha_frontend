@@ -32,6 +32,9 @@ export class AddOrganismeComponent {
         tel: form.value.tel,
         fax: form.value.fax,
         adresse: form.value.adresse,
+        site_web: form.value.site_web ,
+        geoloc : form.value.geoloc,
+        email : form.value.email,
 
 
       };

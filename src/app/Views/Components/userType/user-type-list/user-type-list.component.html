@@ -1,0 +1,70 @@
+<div>
+    <h2 style="text-align: center" [hidden]="!showUpdateForm">
+      Modifier {{ selectedUserType?.lib_user_type  }}
+    </h2>
+    <div [hidden]="showUpdateForm">
+      <h2>Liste des Types d'utilisateurs</h2>
+      <app-add-button class="AddTraining" (click)="AddUserType()"></app-add-button>
+      <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
+    </div>
+  
+    <div [hidden]="!showUpdateForm">
+      <div class="container">
+        <form #updateUserTypeForm="ngForm" (ngSubmit)="onFormSubmit(updateUserTypeForm)">
+          <div class="row">
+            <h4>Modifier Type d'utilisateur</h4>
+  
+  
+  
+            <label for="collegeYear">Libellé Type d'utilisateur</label>
+            <div class="input-group input-group-icon">
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Libellé Type d'utilisateur" 
+                ngModel 
+                [required]="true" 
+              />
+              <div class="input-icon"><i class="fa fa-calendar"></i></div>
+            </div>
+            <app-ui-message 
+              [message]="'Libellé Type Utilisateur est requise !'" 
+              *ngIf="updateUserTypeForm.controls['name'] && updateUserTypeForm.controls['name'].errors?.['required']" 
+              class="error-message"
+            ></app-ui-message>
+            
+
+
+          </div>
+  
+          <div class="row">
+            <div class="col-half">
+              <div class="input-group">
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+                <div class="col-third">
+                </div>
+              </div>
+            </div>
+            <div class="col-half">
+  
+              <div class="input-group">
+  
+  
+                <app-confirm-button type="submit" class="app-confirm-button"
+                  [disabled]="updateUserTypeForm.invalid"></app-confirm-button>
+  
+                <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
+                  class="success-message"></app-ui-message>
+  
+                <app-ui-message [message]="'erreur de modification'" *ngIf="errorMessage"
+                  class="error-message"></app-ui-message>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

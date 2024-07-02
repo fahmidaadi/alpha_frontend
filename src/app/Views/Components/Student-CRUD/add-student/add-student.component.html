@@ -4,26 +4,30 @@
   <form (ngSubmit)="onSubmit(addStudentForm)" #addStudentForm="ngForm">
     <div class="row">
       <h3 style="text-align: center;">Données du Stagiaire</h3>
+
+
+      <label for="Cin">Code d'identinté Nationale de stagaire</label>
       <div class="input-group input-group-icon">
         <input type="text" placeholder="Code d'identinté Nationale de stagaire" name="cin" ngModel [required]="true"/>
         <div class="input-icon"><i class="fa fa-user"></i></div>
       </div>
       <app-ui-message [message]="'CIN du stagaire est requis'" *ngIf="addStudentForm.controls['cin'] && addStudentForm.controls['cin'].errors?.['required']" class="error-message"></app-ui-message>
       
-
+      <label for="name">Nom Complet</label>
       <div class="input-group input-group-icon">
         <input type="text" placeholder="Nom du stagaire" name="name" ngModel [required]="true"/>
         <div class="input-icon"><i class="fa fa-user"></i></div>
       </div>
       <app-ui-message [message]="'Nom du stagaire est requis'" *ngIf="addStudentForm.controls['name'] && addStudentForm.controls['name'].errors?.['required']" class="error-message"></app-ui-message>
       
+      <label for="email">Email</label>
       <div class="input-group input-group-icon">
         <input type="email" placeholder="Email" name="email" ngModel [required]="true"/>
         <div class="input-icon"><i class="fa fa-envelope"></i></div>
       </div>
       <app-ui-message [message]="'Email est requis'" *ngIf="addStudentForm.controls['email'] && addStudentForm.controls['email'].errors?.['required']" class="error-message"></app-ui-message>
       
-
+      <label for="classe">Classe</label>
       <div class="input-group input-group-icon">
         <select  name="classe" ngModel [required]="true" class="form-control">
           <option *ngFor="let loadedClassRoom of loadedClassRooms" [value]="loadedClassRoom.classe_id">{{ loadedClassRoom.code_classe }}</option>
@@ -41,16 +45,22 @@
         <h4>Date de Naissance</h4>
         <div class="input-group">
           <div class="col-third">
-            <input type="text" placeholder="DD" name="day" [(ngModel)]="day" [required]="true"/>
-
+            <input type="text" placeholder="JJ" name="day" [(ngModel)]="day" [required]="true"/>
+            <app-ui-message [message]="'*'"
+            *ngIf="addStudentForm.controls['day'] && addStudentForm.controls['day'].errors?.['required']"
+            class="error-message"></app-ui-message>
           </div>
           <div class="col-third">
             <input type="text" placeholder="MM" name="month" [(ngModel)]="month"[required]="true" />
-
+            <app-ui-message [message]="'*'"
+            *ngIf="addStudentForm.controls['month'] && addStudentForm.controls['month'].errors?.['required']"
+            class="error-message"></app-ui-message>
           </div>
           <div class="col-third">
-            <input type="text" placeholder="YYYY" name="year" [(ngModel)]="year" [required]="true"/>
-
+            <input type="text" placeholder="AAAA" name="year" [(ngModel)]="year" [required]="true"/>
+            <app-ui-message [message]="'*'"
+            *ngIf="addStudentForm.controls['year'] && addStudentForm.controls['year'].errors?.['required']"
+            class="error-message"></app-ui-message>
           </div>
         </div>
       </div>
@@ -58,7 +68,9 @@
         <h4>Numéro de Téléphone</h4>
         <div class="input-group">
           <input id="gender-male" placeholder="Numéro de Téléphone" type="text" name="phone_nbr"  ngModel [required]="true"/>
-
+          <app-ui-message [message]="'*'"
+          *ngIf="addStudentForm.controls['phone_nbr'] && addStudentForm.controls['phone_nbr'].errors?.['required']"
+          class="error-message"></app-ui-message>
           
 
           <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addStudentForm.invalid"></app-confirm-button>

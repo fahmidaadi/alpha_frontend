@@ -32,6 +32,15 @@
               *ngIf="updateSupervisorForm.controls['contact'] && updateSupervisorForm.controls['contact'].errors?.['required']"
               class="error-message"></app-ui-message>
 
+              <label for="email">Email</label>
+              <div class="input-group input-group-icon">
+                <input type="text" placeholder="Email Encadrant" name="email" ngModel [required]="true" />
+                <div class="input-icon"><i class="fa fa-user"></i></div>
+              </div>
+              <app-ui-message [message]="'email est requis'"
+                *ngIf="updateSupervisorForm.controls['email'] && updateSupervisorForm.controls['email'].errors?.['required']"
+                class="error-message"></app-ui-message>
+
               <label for="department">Département</label>
               <div class="input-group input-group-icon">
                   <select name="department" ngModel [required]="true" class="form-control">

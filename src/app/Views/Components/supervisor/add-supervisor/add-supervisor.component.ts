@@ -63,6 +63,7 @@ export class AddSupervisorComponent {
         name: form.value.name,
         contact_info: form.value.contact,
         departement_id : form.value.department,
+        email : form.value.email, 
       };
 
       

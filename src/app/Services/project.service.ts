@@ -21,7 +21,7 @@ export class ProjectService {
         map(response => response.data),
         mergeMap(projects => {
           const ProjectObservables = projects.map(project =>
-            this.organismeService.getOrganismeId(project.project_id!.toString())
+            this.organismeService.getOrganismeId(project.organisme_id!.toString())
             .pipe(
               map(organisme => {
                 project.organisme = organisme; // Use optional chaining
@@ -72,11 +72,30 @@ export class ProjectService {
 
   //Get project by id
   getProjectById(project_id: string): Observable<any> {
-    const headers = this.createAuthorizationHeaders(); 
-    return this.http.get<any>(`${this.apiUrl}/projects/${project_id}` , {headers}).pipe(
-        map(response => response.data),
-        catchError(this.handleError)
-      );
+    const headers = this.createAuthorizationHeaders();
+
+    return this.http.get<{ success: boolean; message: string; data: any }>(`${this.apiUrl}/projects/${project_id}`, { headers }).pipe(
+      mergeMap(response => {
+        const project = response.data;
+
+        if (project.organisme_id) {
+          return this.organismeService.getOrganismeId(project.organisme_id.toString()).pipe(
+            map(organisme => {
+              project.organisme = organisme;
+              return project;
+            }),
+            catchError(error => {
+              console.error(`Error fetching organisme with ID ${project.organisme_id}:`, error);
+              // Handle error if needed
+              return throwError(error);
+            })
+          );
+        } else {
+          return project;
+        }
+      }),
+      catchError(this.handleError)
+    );
   }
   
 
@@ -101,11 +120,7 @@ export class ProjectService {
       Authorization: `Bearer ${accessToken}`
     });
 
-    console.log("Headers:");
-    headers.keys().forEach(header => {
-      console.log(`${header}: ${headers.get(header)}`);
-    });
-
+  
     return headers;
   }
 

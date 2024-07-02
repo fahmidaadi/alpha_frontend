@@ -20,9 +20,9 @@
 
           <div class="input-group input-group-icon">
             <label for="date">Date Début Stage</label>
-            <input type="date" id="date" name="start_date"  ngModel [required]="true" />
+            <input type="date" id="date" name="start_date" ngModel [required]="true" />
           </div>
-          <app-ui-message [message]="'Stage start_date est requis'"
+          <app-ui-message [message]="'Date début est requise'"
             *ngIf="updateInternshipForm.controls['start_date'] && updateInternshipForm.controls['start_date'].errors?.['required']"
             class="error-message"></app-ui-message>
 
@@ -30,14 +30,25 @@
             <label for="date">Date Fin Stage</label>
             <input type="date" id="date" name="end_date" ngModel [required]="true" />
           </div>
-          <app-ui-message [message]="'Stage end_date est requis'"
+          <app-ui-message [message]="'Data fin est requise'"
             *ngIf="updateInternshipForm.controls['end_date'] && updateInternshipForm.controls['end_date'].errors?.['required']"
             class="error-message"></app-ui-message>
+          
 
+
+            <div class="input-group input-group-icon">
+              <label for="date">Date Soutenance</label>
+              <input type="date" id="date" name="date_soutenance" ngModel [required]="true" />
+            </div>
+            <app-ui-message [message]="'Date Soutenance est requise'"
+              *ngIf="updateInternshipForm.controls['date_soutenance'] && updateInternshipForm.controls['date_soutenance'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+            <label for="status">Status</label>
             <div class="input-group input-group-icon">
               <select name="status" ngModel [required]="true" class="form-control">
                 <option value="">Sélectionner un status</option>
-                <option value="en attente">En attente</option>
+                <option value="en attente">en attente</option>
                 <option value="Confirmé">Confirmé</option>
               </select>
               <div class="input-icon"><i class="fa fa-user"></i></div>
@@ -46,7 +57,7 @@
               *ngIf="updateInternshipForm.controls['status'] && updateInternshipForm.controls['status'].errors?.['required']"
               class="error-message"></app-ui-message>
             
-
+              <label for="evaluation">Evaluation</label>
           <div class="input-group input-group-icon">
             <input type="text" placeholder="Evaluation" name="evaluation" ngModel [required]="true" />
             <div class="input-icon"><i class="fa fa-envelope"></i></div>
@@ -55,46 +66,58 @@
             *ngIf="updateInternshipForm.controls['evaluation'] && updateInternshipForm.controls['evaluation'].errors?.['required']"
             class="error-message"></app-ui-message>
 
-          <div class="input-group input-group-icon">
-            <select name="etudiant_cin" ngModel [required]="true" class="form-control">
-              <option *ngFor="let loadedStudent of loadedStudents" [value]="loadedStudent.cin">
-                {{ loadedStudent.name }}
-              </option>
-            </select>
-            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
-          </div>
-          <app-ui-message [message]="'Etudiant est requis'"
-            *ngIf="updateInternshipForm.controls['etudiant_cin'] && updateInternshipForm.controls['etudiant_cin'].errors?.['required']"
-            class="error-message"></app-ui-message>
 
-          <div class="input-group input-group-icon">
-            <select name="classe_id" ngModel [required]="true" class="form-control">
-              <option *ngFor="let loadedClassRoom of loadedClassRooms" [value]="loadedClassRoom.classe_id">
-                {{ loadedClassRoom.code_classe }}
-              </option>
-            </select>
-            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
-          </div>
-          <app-ui-message [message]="'Classe est requis'"
-            *ngIf="updateInternshipForm.controls['classe_id'] && updateInternshipForm.controls['classe_id'].errors?.['required']"
-            class="error-message"></app-ui-message>
+            
+            <label for="classe_id">Classe</label>
+            <div class="input-group input-group-icon">
+                <select name="classe_id" [(ngModel)]="selectedClassroomId" (change)="onClassroomChange()" [required]="true" class="form-control">
+                    <option *ngFor="let loadedClassRoom of loadedClassRooms" [value]="loadedClassRoom.classe_id">{{ loadedClassRoom.code_classe }}</option>
+                </select>
+                <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+            </div>
+            <app-ui-message [message]="'Classe est requise'"
+                *ngIf="updateInternshipForm.controls['classe_id'] && updateInternshipForm.controls['classe_id'].errors?.['required']"
+                class="error-message"></app-ui-message>
+            
+            
 
-          <div class="input-group input-group-icon">
-            <select name="niveau_formation_id" ngModel [required]="true" class="form-control">
-              <option *ngFor="let loadedTrainingType of loadedTrainingTypes"
-                [value]="loadedTrainingType.niveau_formation_id">
-                {{
-                loadedTrainingType.lib_niveau_formation_fr +
-                " " +
-                loadedTrainingType.training.lib_formation_fr
-                }}
-              </option>
-            </select>
-            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
-          </div>
-          <app-ui-message [message]="'Niveau de Formation est requis'"
-            *ngIf="updateInternshipForm.controls['niveau_formation_id'] && updateInternshipForm.controls['niveau_formation_id'].errors?.['niveau_formation_id']"
-            class="error-message"></app-ui-message>
+                <ng-container *ngFor="let student of students; let i = index">
+                  <label for="etudiant_cin_{{i}}">Etudiant {{i + 1}}</label>
+                  <div class="input-group input-group-icon">
+                      <select name="etudiant_cin_{{i}}" [(ngModel)]="student.selectedStudentCin" [ngModelOptions]="{standalone: true}" [required]="true" class="form-control">
+                          <option value="" disabled>Sélectionner un étudiant</option>
+                          <option *ngFor="let loadedStudent of filteredStudents" [value]="loadedStudent.cin">
+                              {{ loadedStudent.cin + ' - ' + loadedStudent.name }}
+                          </option>
+                      </select>
+                      <button *ngIf="students.length < 2 && i === 0" class="btn btn-sm btn-primary ml-2" type="button" (click)="addStudent()">+</button>
+                      <button *ngIf="i !== 0" class="btn btn-sm btn-danger ml-2" type="button" (click)="removeStudent(i)">-</button>
+                  </div>
+                  <app-ui-message [message]="'Etudiant est requis'" *ngIf="updateInternshipForm.controls['etudiant_cin_' + i] && updateInternshipForm.controls['etudiant_cin_' + i].errors?.['required']" class="error-message"></app-ui-message>
+              </ng-container>
+
+            <label for="project_id">Projet</label>
+            <div class="input-group input-group-icon">
+                <select name="project_id" ngModel [required]="true" class="form-control">
+                  <option *ngFor="let loadedProject of loadedProjects" [value]="loadedProject.project_id">{{ loadedProject.title }}</option>
+                </select>
+                <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+              </div>
+              <app-ui-message [message]="'Projet est requis'"
+                *ngIf="updateInternshipForm.controls['project_id'] && updateInternshipForm.controls['project_id'].errors?.['required']"
+                class="error-message"></app-ui-message>
+            
+
+                <label for="encadrant_id">Encadrant</label>
+                <div class="input-group input-group-icon">
+                    <select name="encadrant_id" ngModel [required]="true" class="form-control">
+                      <option *ngFor="let loadedSupervisor of loadedSupervisors" [value]="loadedSupervisor.encadrant_id">{{ loadedSupervisor.name }}</option>
+                    </select>
+                    <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+                  </div>
+                  <app-ui-message [message]="'Encadrant est requis'"
+                    *ngIf="updateInternshipForm.controls['project_id'] && updateInternshipForm.controls['encadrant_id'].errors?.['encadrant_id']"
+                    class="error-message"></app-ui-message>
         </div>
         <div class="row">
           <div class="col-half">

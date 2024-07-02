@@ -1,0 +1,52 @@
+
+<div class="container">
+    <form (ngSubmit)="onSubmit(addUserTypeForm)" #addUserTypeForm="ngForm">
+      <div class="row">
+        <h4>Ajouter un Type d'utilisateur</h4>
+
+        <label for="name">Libellé Type d'utilisateur</label>
+            <div class="input-group input-group-icon">
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Libellé Type d'utilisateur" 
+                ngModel 
+                [required]="true" 
+              />
+              <div class="input-icon"><i class="fa fa-calendar"></i></div>
+            </div>
+            <app-ui-message 
+              [message]="'Libellé Type Utilisateur est requise !'" 
+              *ngIf="addUserTypeForm.controls['name'] && addUserTypeForm.controls['name'].errors?.['required']" 
+              class="error-message"
+            ></app-ui-message>
+            
+
+        
+      </div>
+      <div class="row">
+        <div class="col-half">
+          
+        </div>
+        <div class="col-half">
+          <div class="input-group">
+           
+  
+            
+            <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addUserTypeForm.invalid"></app-confirm-button>
+  
+            
+            <app-ui-message [message]="'Ajout avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+    
+            <app-ui-message [message]="'erreur d ajout'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+  
+  
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="center-button">
+      <a [href]="['/user-type-list']" routerLinkActive="router-link-active" class="button">Retour</a>
+    </div>
+  </div>
+  

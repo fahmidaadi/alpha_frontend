@@ -20,7 +20,6 @@ export class InternshipTypeService {
     return this.http.get<{ success: boolean; message: string; data: InternshipType[] }>(`${this.apiUrl}/type_stages`)
       .pipe(
         map(response => {
-          console.log('Fetched internship types:', response.data);
           return response.data;
         })
       );
@@ -59,7 +58,6 @@ export class InternshipTypeService {
   //Get internship Type by id
   getInternshipTypeById(internship_type_id: string): Observable<any> {
     const headers = this.createAuthorizationHeaders(); 
-    console.log("result " + internship_type_id);
     return this.http.get<any>(`${this.apiUrl}/type_stages/${internship_type_id}` , {headers});
   }
   
@@ -85,10 +83,7 @@ export class InternshipTypeService {
       Authorization: `Bearer ${accessToken}`
     });
 
-    console.log("Headers:");
-    headers.keys().forEach(header => {
-      console.log(`${header}: ${headers.get(header)}`);
-    });
+    
 
     return headers;
   }

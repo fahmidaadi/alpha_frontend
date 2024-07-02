@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DepartmentService } from '../../../../Services/department.service';
 import { PopupMessageService } from '../../../../Services/popup-message.service';
 import { ConfirmButtonComponent } from '../../../Shared/confirm-button/confirm-button.component';
 import { UiMessageComponent } from '../../../Shared/ui-message/ui-message.component';
@@ -28,8 +27,8 @@ export class AddParcourComponent {
   onSubmit(form: NgForm) {
     if (form.valid) {
       const parcourData = {
-        code_parcour: form.value.code,
-        lib_parcour_fr: form.value.name,
+        code_parcours: form.value.code,
+        lib_parcours_fr: form.value.name,
 
       };
 
@@ -37,7 +36,6 @@ export class AddParcourComponent {
         (response) => {
           this.popupMessageService.showPopupMessage(" Parcour ajouté avec succées !", 'success');
 
-          this.successMessage = 'Parcour';
           this.errorMessage = null;
           form.resetForm();
           this.router.navigate(['/parcour-list']);
@@ -46,12 +44,10 @@ export class AddParcourComponent {
         (error) => {
           this.popupMessageService.showPopupMessage("Impossible d'ajouter le Parcour !", 'error');
 
-          this.errorMessage = "Impossible d'ajouter le Parcour !";
           this.successMessage = null;
         }
       );
     } else {
-      // Check which fields are empty and set corresponding error messages
       if (!form.value.name) {
         this.errorMessage = 'Le nom de Parcour est réquis!';
       }

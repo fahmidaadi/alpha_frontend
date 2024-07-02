@@ -46,7 +46,13 @@
                 *ngIf="updateOrganismeForm.controls['fax'] && updateOrganismeForm.controls['fax'].errors?.['required']"
                 class="error-message"></app-ui-message>
 
-
+                <label for="email">E-mail d'Organisme</label>
+                <div class="input-group input-group-icon">
+                  <input type="text" placeholder="E-mail d'Organisme" name="email" ngModel [required]="true"/>
+                  <div class="input-icon"><i class="fa fa-user"></i></div>
+                </div>
+                <app-ui-message [message]="'E-mail d Organisme est requise'" *ngIf="updateOrganismeForm.controls['email'] && updateOrganismeForm.controls['email'].errors?.['required']" class="error-message"></app-ui-message>
+        
 
 
                 <label for="adresse">Adresse d'Organisme</label>
@@ -57,6 +63,24 @@
                   <app-ui-message [message]="'Adresse du Organisme est requis'"
                     *ngIf="updateOrganismeForm.controls['adresse'] && updateOrganismeForm.controls['adresse'].errors?.['required']"
                     class="error-message"></app-ui-message>
+
+                    <label for="site_web">Site Web d'Organisme</label>
+                <div class="input-group input-group-icon">
+                    <input type="text" placeholder="Site Web Organisme" name="site_web" ngModel [required]="true" />
+                    <div class="input-icon"><i class="fa fa-user"></i></div>
+                  </div>
+                  <app-ui-message [message]="'Site Web Organisme est requis'"
+                    *ngIf="updateOrganismeForm.controls['site_web'] && updateOrganismeForm.controls['site_web'].errors?.['required']"
+                    class="error-message"></app-ui-message>
+
+                    <label for="geoloc">Localisation d'Organisme</label>
+                    <div class="input-group input-group-icon">
+                        <input type="text" placeholder="Localisation Organisme" name="geoloc" ngModel [required]="true" />
+                        <div class="input-icon"><i class="fa fa-user"></i></div>
+                      </div>
+                      <app-ui-message [message]="'Localisation Organisme est requis'"
+                        *ngIf="updateOrganismeForm.controls['geoloc'] && updateOrganismeForm.controls['geoloc'].errors?.['required']"
+                        class="error-message"></app-ui-message>
 
           </div>
   

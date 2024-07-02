@@ -14,6 +14,8 @@ import { InternshipDetailsButtonComponent } from '../../../Shared/internship-det
 import { UiMessageComponent } from '../../../Shared/ui-message/ui-message.component';
 import { Project } from '../../../../Models/project';
 import { ProjectService } from '../../../../Services/project.service';
+import { OrganismeService } from '../../../../Services/organisme.service';
+import { Organisme } from '../../../../Models/organisme';
 
 @Component({
   selector: 'app-projects-list',
@@ -34,6 +36,7 @@ export class ProjectsListComponent {
   dtOptions: Config = {};
 
   projects: Project[] = [];
+  loadedOrganismes : Organisme[] = [];
 
   @Input() deleteButtonLabel: string = 'Supprimer';
   @Input() updateButtonLabel: string = 'Modifier';
@@ -49,11 +52,13 @@ export class ProjectsListComponent {
 
   constructor(
     private projectService: ProjectService,
+    private organismeService : OrganismeService,
     router: Router,
     private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
+    this.loadOrganismes();
     this.dtOptions = {
       language: {
         "emptyTable": "Aucune donnée disponible dans le tableau",
@@ -89,7 +94,7 @@ export class ProjectsListComponent {
                 title: project.title,
                 description: project.description,
                 status: project.status,
-                organisme: project.organisme.lib_organisme,
+                organisme: project.organisme?.lib_organisme,
 
                 actions: this.renderActions(project),
               };
@@ -172,6 +177,18 @@ export class ProjectsListComponent {
       }
     );
   }
+
+  private loadOrganismes(): void {
+    this.organismeService.getOrganismes().subscribe(
+      (organismes: Organisme[]) => {
+        this.loadedOrganismes = organismes; 
+      },
+      (error) => {
+        console.error('Error fetching organismes', error);
+        this.errorMessage = 'Error loading Organismes!';
+      }
+    );
+  }  
 
   handleDelete(project: Project): void {
     this.dialogService

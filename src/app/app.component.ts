@@ -26,6 +26,7 @@ import { ProjectService } from './Services/project.service';
 import { OrganismeService } from './Services/organisme.service';
 import { CollegeYearService } from './Services/college-year.service';
 import { ParcourService } from './Services/parcour.service';
+import { UserTypeService } from './Services/user-type.service';
 
 @Component({
     selector: 'app-root',
@@ -54,6 +55,7 @@ import { ParcourService } from './Services/parcour.service';
         OrganismeService , 
         CollegeYearService,
         ParcourService,
+        UserTypeService,
         
     ],
     imports: [

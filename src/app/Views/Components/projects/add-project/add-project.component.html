@@ -1,0 +1,75 @@
+
+<div class="container">
+    <form (ngSubmit)="onSubmit(addProjectForm)" #addProjectForm="ngForm">
+      <div class="row">
+        <h4>Ajouter un Projet</h4>
+
+
+      
+       
+        <label for="title">Titre de Projet</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Titre de Projet" name="title" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Titre de Projet est requis'"
+              *ngIf="addProjectForm.controls['title'] && addProjectForm.controls['title'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+              <label for="description">Description</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Description" name="description" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Description est requis'"
+              *ngIf="addProjectForm.controls['description'] && addProjectForm.controls['description'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+              <label for="status">Status</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="status" name="status" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Status est requise'"
+              *ngIf="addProjectForm.controls['status'] && addProjectForm.controls['status'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+              <label for="organisme_id">Organisme</label>
+        <div class="input-group input-group-icon">
+            <select name="organisme_id" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedOrganisme of loadedOrganismes" [value]="loadedOrganisme.organisme_id">{{ loadedOrganisme.lib_organisme }}</option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'Organisme est requise'"
+            *ngIf="addProjectForm.controls['organisme_id'] && addProjectForm.controls['organisme_id'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+                
+       
+
+       
+    
+      </div>
+      <div class="row">
+        <div class="col-half">
+          
+        </div>
+        <div class="col-half">
+          <div class="input-group">
+           
+  
+            
+            <app-confirm-button type="submit" class="app-confirm-button" [disabled]="addProjectForm.invalid"></app-confirm-button>
+   
+            <app-ui-message [message]="'Ajout avec succées'" *ngIf="successMessage" class="success-message"></app-ui-message>
+    
+            <app-ui-message [message]="'erreur d ajout'" *ngIf="errorMessage" class="error-message"></app-ui-message>
+  
+  
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  

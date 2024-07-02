@@ -3,31 +3,56 @@
       Modifier {{ selectedProject?.title }}
     </h2>
     <div [hidden]="showUpdateForm">
-      <h2>Liste des Formations</h2>
+      <h2>Liste des Projets</h2>
       <app-add-button class="AddTraining" (click)="AddProject()"></app-add-button>
       <table datatable [dtOptions]="dtOptions" class="row-border hover" [hidden]="showUpdateForm"></table>
     </div>
   
     <div [hidden]="!showUpdateForm">
       <div class="container">
-        <form #updateTrainingForm="ngForm" (ngSubmit)="onFormSubmit(updateTrainingForm)">
+        <form #updateProjectForm="ngForm" (ngSubmit)="onFormSubmit(updateProjectForm)">
           <div class="row">
-            <h4>Modifier une Formation</h4>
+            <h4>Modifier un Projet</h4>
   
+            <label for="title">Titre de Projet</label>
             <div class="input-group input-group-icon">
-              <input type="text" placeholder="Code du Formation" name="code" ngModel [required]="true" />
+              <input type="text" placeholder="Titre de Projet" name="title" ngModel [required]="true" />
               <div class="input-icon"><i class="fa fa-user"></i></div>
             </div>
-            <app-ui-message [message]="'Code du Formation est requis'"
-              *ngIf="updateTrainingForm.controls['code'] && updateTrainingForm.controls['code'].errors?.['required']"
+            <app-ui-message [message]="'Titre de Projet est requis'"
+              *ngIf="updateProjectForm.controls['title'] && updateProjectForm.controls['title'].errors?.['required']"
               class="error-message"></app-ui-message>
+
+              <label for="description">Description</label>
             <div class="input-group input-group-icon">
-              <input type="text" placeholder="Nom du Formation" name="name" ngModel [required]="true" />
+              <input type="text" placeholder="Description" name="description" ngModel [required]="true" />
               <div class="input-icon"><i class="fa fa-user"></i></div>
             </div>
-            <app-ui-message [message]="'Nom du Formation est requis'"
-              *ngIf="updateTrainingForm.controls['name'] && updateTrainingForm.controls['name'].errors?.['required']"
+            <app-ui-message [message]="'Description est requis'"
+              *ngIf="updateProjectForm.controls['description'] && updateProjectForm.controls['description'].errors?.['required']"
               class="error-message"></app-ui-message>
+
+              <label for="status">Status</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="status" name="status" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Status est requise'"
+              *ngIf="updateProjectForm.controls['status'] && updateProjectForm.controls['status'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+              <label for="organisme_id">Organisme</label>
+        <div class="input-group input-group-icon">
+            <select name="organisme_id" ngModel [required]="true" class="form-control">
+              <option *ngFor="let loadedOrganisme of loadedOrganismes" [value]="loadedOrganisme.organisme_id">{{ loadedOrganisme.lib_organisme }}</option>
+            </select>
+            <div class="input-icon"><i class="fa fa-graduation-cap"></i></div>
+          </div>
+          <app-ui-message [message]="'Organisme est requise'"
+            *ngIf="updateProjectForm.controls['organisme_id'] && updateProjectForm.controls['organisme_id'].errors?.['required']"
+            class="error-message"></app-ui-message>
+
+
           </div>
   
           <div class="row">
@@ -47,7 +72,7 @@
   
   
                 <app-confirm-button type="submit" class="app-confirm-button"
-                  [disabled]="updateTrainingForm.invalid"></app-confirm-button>
+                  [disabled]="updateProjectForm.invalid"></app-confirm-button>
   
                 <app-ui-message [message]="'Modifiée avec succées'" *ngIf="successMessage"
                   class="success-message"></app-ui-message>

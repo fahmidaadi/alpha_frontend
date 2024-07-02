@@ -83,10 +83,7 @@ export class ParcourService {
       Authorization: `Bearer ${accessToken}`
     });
 
-    console.log("Headers:");
-    headers.keys().forEach(header => {
-      console.log(`${header}: ${headers.get(header)}`);
-    });
+  
 
     return headers;
   }

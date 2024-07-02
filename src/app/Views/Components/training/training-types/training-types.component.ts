@@ -106,7 +106,7 @@ export class TrainingTypesComponent implements OnInit {
                 lib_niveau_formation_fr: trainingType.lib_niveau_formation_fr,
                 formation: trainingType.training.lib_formation_fr,
                 internshipType: trainingType.internshipType.lib_Type_Stage_fr,
-                parcour : trainingType.parcour.lib_parcour_fr,
+                parcour : trainingType.parcour.lib_parcours_fr,
                 actions: this.renderActions(trainingType),
 
               };

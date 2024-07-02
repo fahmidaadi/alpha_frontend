@@ -90,6 +90,9 @@ export class OrganismeListComponent {
                 tel: organisme.tel, 
                 fax : organisme.fax,
                 adresse : organisme.adresse,
+                site_web : organisme.site_web ,
+                geoloc : organisme.geoloc,
+                email : organisme.email,
                 actions: this.renderActions(organisme),
               })),
             });
@@ -117,8 +120,21 @@ export class OrganismeListComponent {
           data: 'fax',
         },
         {
+          title: 'E-mail Organisme',
+          data: 'email',
+        },
+        {
           title: 'Adresse Organisme',
           data: 'adresse',
+        },
+        
+        {
+          title: 'Site Web',
+          data: 'site_web',
+        },
+        {
+          title: 'Localisation',
+          data: 'geoloc',
         },
         {
           title: 'Actions',
@@ -204,6 +220,9 @@ export class OrganismeListComponent {
         tel: organisme.tel,
         fax: organisme.fax,
         adresse: organisme.adresse,
+        site_web : organisme.site_web,
+        geoloc : organisme.geoloc,
+        email : organisme.email,
 
       });
     }
@@ -224,7 +243,9 @@ export class OrganismeListComponent {
         tel : form.value.tel ,
         fax : form.value.fax ,
         adresse : form.value.adresse ,
-
+        site_web : form.value.site_web,
+        geoloc : form.value.geoloc,
+        email : form.value.email,
       };
 
       this.organismeService

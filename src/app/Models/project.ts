@@ -8,5 +8,5 @@ export interface Project {
     status : string 
     organisme_id : number ;
 
-    organisme : Organisme;
+    organisme? : Organisme;
 }

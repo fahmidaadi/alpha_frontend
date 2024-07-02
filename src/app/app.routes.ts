@@ -33,6 +33,10 @@ import { AddCollegeYearComponent } from './Views/Components/collegeYear/add-coll
 import { ParcourListComponent } from './Views/Components/parcour/parcour-list/parcour-list.component';
 import { AddParcourComponent } from './Views/Components/parcour/add-parcour/add-parcour.component';
 import { AddSupervisorComponent } from './Views/Components/supervisor/add-supervisor/add-supervisor.component';
+import { AddUserComponent } from './Views/Components/user/add-user/add-user.component';
+import { UserTypeListComponent } from './Views/Components/userType/user-type-list/user-type-list.component';
+import { AddUserTypeComponent } from './Views/Components/userType/add-user-type/add-user-type.component';
+import { AddProjectComponent } from './Views/Components/projects/add-project/add-project.component';
 
 export const routes: Routes = [
   {
@@ -58,6 +62,22 @@ export const routes: Routes = [
     path: 'user-list',
     component: UserListComponent,
   },
+  {
+    path: 'user-list/add',
+    component: AddUserComponent,
+  },
+
+  {
+    path: 'user-type-list',
+    component: UserTypeListComponent,
+  },
+  
+  {
+    path: 'user-type-list/add',
+    component: AddUserTypeComponent,
+  },
+
+  
   {
     path: 'internship-list',
     component: InternshipListComponent,
@@ -193,7 +213,7 @@ export const routes: Routes = [
   },
   {
     path: 'projects-list/add',
-    component: ProjectsListComponent,
+    component: AddProjectComponent,
     //canActivate: [AuthGuard]
   },
   {

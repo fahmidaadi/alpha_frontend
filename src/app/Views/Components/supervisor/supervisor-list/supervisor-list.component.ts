@@ -96,10 +96,11 @@ export class SupervisorListComponent {
 
             callback({
               data: data.map((supervisor) => ({
-                supervisor_id : supervisor.supervisor_id,
+                encadrant_id : supervisor.encadrant_id,
                 name: supervisor.name,
                 department: supervisor.departement?.lib_departement_fr, 
                 contact_info: supervisor.contact_info, 
+                email : supervisor.email,
 
                 actions: this.renderActions(supervisor),
               })),
@@ -113,7 +114,7 @@ export class SupervisorListComponent {
       columns: [
         {
           title: 'Id ',
-          data: 'supervisor_id',
+          data: 'encadrant_id',
         },
         {
           title: 'Nom Encadrant',
@@ -126,6 +127,10 @@ export class SupervisorListComponent {
         {
           title: 'Contact',
           data: 'contact_info',
+        },
+        {
+          title: 'E-mail',
+          data: 'email',
         },
         {
           title: 'Actions',
@@ -195,13 +200,13 @@ export class SupervisorListComponent {
       .showConfirmDialog(supervisor.name)
       .then((confirmed) => {
         if (confirmed) {
-          this.supervisorService.deleteSupervisor(supervisor.supervisor_id).subscribe(
+          this.supervisorService.deleteSupervisor(supervisor.encadrant_id).subscribe(
             () => {
               window.location.reload();
               
               // Refresh the page after deletion
               this.supervisors = this.supervisors.filter(
-                (s) => s.supervisor_id !== supervisor.supervisor_id
+                (s) => s.encadrant_id !== supervisor.encadrant_id
               );
               this.popupMessageService.showPopupMessage("Encadrant supprimé avec succées !", 'success');
             },
@@ -223,6 +228,7 @@ export class SupervisorListComponent {
         name: supervisor.name,
         department: supervisor.departement_id,
         contact: supervisor.contact_info,
+        email : supervisor.email,
 
       });
     }
@@ -242,12 +248,13 @@ export class SupervisorListComponent {
         name: form.value.name,
         department: form.value.department,
         contact_info: form.value.contact,
+        email : form.value.email,
 
       };
 
       this.supervisorService
         .updateSupervisor(
-          this.selectedSupervisor?.supervisor_id,
+          this.selectedSupervisor?.encadrant_id,
           updatedSupervisorData
         )
         .subscribe(

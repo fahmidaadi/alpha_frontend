@@ -14,14 +14,13 @@ import {
   switchMap,
   of,
 } from 'rxjs';
-import { ClassRoom } from '../Models/classRoom';
-import { Student } from '../Models/student';
 import { ClassService } from './class.service';
 import { Internship } from '../Models/internship';
 import { StudentService } from './student.service';
 import { TrainingTypeService } from './training-type.service';
 import { InternshipTypeService } from './internship-type.service';
 import { SupervisorService } from './supervisor.service';
+import { ProjectService } from './project.service';
 
 @Injectable({
   providedIn: 'root',
@@ -36,9 +35,8 @@ export class InternshipService {
     private http: HttpClient,
     private classRoomService: ClassService,
     private trainingTypeService: TrainingTypeService,
-    private internshipTypeService :InternshipTypeService ,
     private supervisorService : SupervisorService,
-    private studentService : StudentService
+    private projectService : ProjectService,
   ) {}
 
   // Get internship
@@ -55,9 +53,14 @@ export class InternshipService {
                 mergeMap(trainingType => {
                   internship.trainingType = trainingType;
                   return this.supervisorService.getSupervisorById(internship.encadrant_id.toString()).pipe(
-                    map(supervisor => {
+                    mergeMap(supervisor => {
                       internship.supervisor = supervisor;
-                      return internship;
+                      return this.projectService.getProjectById(internship.project_id.toString()).pipe(
+                        map(project => {
+                          internship.project = project;
+                          return internship;
+                        })
+                      );
                     })
                   );
                 })
@@ -115,17 +118,45 @@ export class InternshipService {
   //Get internship by id
   getInternshipById(stageId: string): Observable<Internship> {
     return this.http.get<{ success: boolean; message: string; data: Internship }>(`${this.apiUrl}/stages/formatted/${stageId}`).pipe(
-      map(response => {
+      mergeMap(response => {
         const internship = response.data;
 
-        // Assign student1 and student2 directly from the API response
+        // Keep the existing assignments for etudiant1_cin
         internship.etudiant1_cin = internship.etudiant1_cin;
-        internship.etudiant1_cin = internship.etudiant1_cin;
+        internship.etudiant2_cin = internship.etudiant2_cin; // Assuming a second CIN field, correct if necessary
 
-        return internship;
+        // Fetch project data for the internship
+        return this.projectService.getProjectById(internship.project_id.toString()).pipe(
+          mergeMap(project => {
+            internship.project = project; // Assign fetched project to internship
+
+            // Fetch supervisor data for the internship
+            return this.supervisorService.getSupervisorById(internship.encadrant_id.toString()).pipe(
+              map(supervisor => {
+                internship.supervisor = supervisor; // Assign fetched supervisor to internship
+                return internship;
+              }),
+              catchError(error => {
+                console.error(`Error fetching supervisor with ID ${internship.encadrant_id}:`, error);
+                // Handle error if needed
+                return throwError(error);
+              })
+            );
+          }),
+          catchError(error => {
+            console.error(`Error fetching project with ID ${internship.project_id}:`, error);
+            // Handle error if needed
+            return throwError(error);
+          })
+        );
+      }),
+      catchError(error => {
+        console.error(`Error fetching internship with ID ${stageId}:`, error);
+        return throwError(() => new Error(error.message || 'Error fetching internship'));
       })
     );
   }
+
   
   
 

@@ -93,40 +93,71 @@ export class LettreAffectationComponent {
 
 
 
-  exportToPDF() {
-    // Sélectionner l'élément à capturer
+    exportToPDF(): void {
+      const element = document.getElementById('pdf-content');
+    
+      if (element && this.student?.name) { // Ensure student name is available
+        html2canvas(element).then((canvas) => {
+          const imgData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+          });
+    
+          const imgWidth = 210; // A4 width in mm
+          const pageHeight = 295; // A4 height in mm
+          const imgHeight = canvas.height * imgWidth / canvas.width;
+          let heightLeft = imgHeight;
+          let position = 0;
+    
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+    
+          while (heightLeft >= 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+          }
+    
+          // Save PDF with student's name
+          const fileName = `demande-stage-${this.student?.name}.pdf`;
+          pdf.save(fileName);
+        });
+      }
+    }
+    
+
+  printContent() {
     const element = document.getElementById('pdf-content');
 
     if (element) {
-      // Utiliser html2canvas pour capturer l'élément en image
       html2canvas(element).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
+        const imageData = canvas.toDataURL('image/png');
+        const doc = new jsPDF({
           orientation: 'p',
           unit: 'mm',
-          format: 'a4'
+          format: 'a4',
         });
-        
-        const imgWidth = 210; // Largeur A4 en mm
-        const pageHeight = 295; // Hauteur A4 en mm
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
 
+        const imgWidth = 210;
+        const pageHeight = 295;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
         let position = 0;
 
-        // Ajouter l'image au PDF
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        doc.addImage(imageData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
-          pdf.addPage();
-          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          doc.addPage();
+          doc.addImage(imageData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
 
-        // Sauvegarder le PDF
-        pdf.save('lettre-affectation.pdf');
+        window.open(doc.output('bloburl'), '_blank');
       });
     }
   }

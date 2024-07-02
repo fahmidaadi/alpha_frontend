@@ -4,5 +4,7 @@ export interface Organisme {
     tel : string ;
     fax : string ;
     adresse : string ;
-    
+    site_web : string ;
+    geoloc : string;
+    email : string ;  
 }

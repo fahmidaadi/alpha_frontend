@@ -89,26 +89,26 @@ export class ParcourListComponent {
 
             callback({
               data: data.map((parcour) => ({
-                code_parcour: parcour.code_parcour,
-                lib_parcour_fr: parcour.lib_parcour_fr,
+                code_parcours: parcour.code_parcours,
+                lib_parcours_fr: parcour.lib_parcours_fr,
 
                 actions: this.renderActions(parcour),
               })),
             });
           },
           (error) => {
-            console.error('Error fetching trainings', error);
+            console.error('Error fetching Parcours', error);
           }
         );
       },
       columns: [
         {
           title: 'Code',
-          data: 'code_parcour',
+          data: 'code_parcours',
         },
         {
           title: 'Libellé Parcour',
-          data: 'lib_parcour_fr',
+          data: 'lib_parcours_fr',
         },
         {
           title: 'Actions',
@@ -162,16 +162,16 @@ export class ParcourListComponent {
 
   handleDelete(parcour: Parcour): void {
     this.dialogService
-      .showConfirmDialog(parcour.lib_parcour_fr)
+      .showConfirmDialog(parcour.lib_parcours_fr)
       .then((confirmed) => {
         if (confirmed) {
-          this.parcourService.deleteParcour(parcour.parcour_id).subscribe(
+          this.parcourService.deleteParcour(parcour.parcours_id).subscribe(
             () => {
               window.location.reload();
 
               // Refresh the page after deletion
               this.parcours = this.parcours.filter(
-                (p) => p.parcour_id !== parcour.parcour_id
+                (p) => p.parcours_id !== parcour.parcours_id
               );
               this.popupMessageService.showPopupMessage("Parcour supprimé avec succées !", 'success');
             },
@@ -190,8 +190,8 @@ export class ParcourListComponent {
       const parcour = this.selectedParcour;
 
       this.updateParcourForm.form.patchValue({
-        code: parcour.code_parcour,
-        name: parcour.lib_parcour_fr,
+        code: parcour.code_parcours,
+        name: parcour.lib_parcours_fr,
       });
     }
   }
@@ -208,13 +208,13 @@ export class ParcourListComponent {
   onFormSubmit(form: NgForm): void {
     if (form.valid) {
       const updatedParcourData = {
-        code_parcour: form.value.code,
-        lib_parcour_fr: form.value.name,
+        code_parcours: form.value.code,
+        lib_parcours_fr: form.value.name,
       };
 
       this.parcourService
         .updateParcour(
-          this.selectedParcour?.parcour_id,
+          this.selectedParcour?.parcours_id,
           updatedParcourData
         )
         .subscribe(

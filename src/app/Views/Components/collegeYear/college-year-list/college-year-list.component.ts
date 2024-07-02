@@ -170,10 +170,10 @@ export class CollegeYearListComponent {
               this.collegeYears = this.collegeYears.filter(
                 (c) => c.annee_universitaire_id !== collegeYear.annee_universitaire_id
               );
-              this.popupMessageService.showPopupMessage("Departement supprimé avec succées !", 'success');
+              this.popupMessageService.showPopupMessage("Année Universitaire supprimé avec succées !", 'success');
             },
             (error) => {
-              this.popupMessageService.showPopupMessage("Erreur lors de la suppression de Département", 'error');
+              this.popupMessageService.showPopupMessage("Erreur lors de la suppression de l'année universitaire", 'error');
 
               console.error('Error deleting departement', error);
             }
@@ -214,19 +214,17 @@ export class CollegeYearListComponent {
         )
         .subscribe(
           () => {
-            this.successMessage = 'Le département est modifiée avec succées!';
             this.errorMessage = null;
             this.showUpdateForm = false;
             window.location.reload();
 
-            this.popupMessageService.showPopupMessage("Departement Modifié avec succées !", 'success');
+            this.popupMessageService.showPopupMessage("Année Universitaire Modifié avec succées !", 'success');
 
           },
           (error) => {
-            this.popupMessageService.showPopupMessage("Erreur de modification de Année Universitaire !", 'error');
+            this.popupMessageService.showPopupMessage("Erreur de modification de l'année Universitaire !", 'error');
 
             console.error('Error updating collegeYear', error);
-            this.errorMessage = 'Erreur de modification de Année Universitaire !';
             this.successMessage = null;
           }
         );

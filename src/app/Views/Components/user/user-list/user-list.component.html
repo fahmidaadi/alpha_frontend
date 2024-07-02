@@ -14,6 +14,7 @@
           <div class="row">
             <h4>Modifier un Utilisateur</h4>
   
+            <label for="username">Nom d'utlisateur</label>
             <div class="input-group input-group-icon">
               <input type="text" placeholder="Nom d'utlisateur" name="username" ngModel [required]="true" />
               <div class="input-icon"><i class="fa fa-user"></i></div>
@@ -21,6 +22,8 @@
             <app-ui-message [message]="'Nom d utlisateur est requis'"
               *ngIf="updateUserForm.controls['username'] && updateUserForm.controls['username'].errors?.['required']"
               class="error-message"></app-ui-message>
+
+              <label for="password">Mot de passe</label>
             <div class="input-group input-group-icon">
               <input type="text" placeholder="Mot de passe" name="password" ngModel [required]="true" />
               <div class="input-icon"><i class="fa fa-user"></i></div>
@@ -28,6 +31,43 @@
             <app-ui-message [message]="'Mot de passe est requis'"
               *ngIf="updateUserForm.controls['password'] && updateUserForm.controls['password'].errors?.['required']"
               class="error-message"></app-ui-message>
+
+              <label for="firstname">Nom</label>
+            <div class="input-group input-group-icon">
+              <input type="text" placeholder="Nom" name="firstname" ngModel [required]="true" />
+              <div class="input-icon"><i class="fa fa-user"></i></div>
+            </div>
+            <app-ui-message [message]="'Mot de passe est requis'"
+              *ngIf="updateUserForm.controls['firstname'] && updateUserForm.controls['firstname'].errors?.['required']"
+              class="error-message"></app-ui-message>
+
+              <label for="lastname">Prénom</label>
+              <div class="input-group input-group-icon">
+                <input type="text" placeholder="Prénom" name="lastname" ngModel [required]="true" />
+                <div class="input-icon"><i class="fa fa-user"></i></div>
+              </div>
+              <app-ui-message [message]="'Mot de passe est requis'"
+                *ngIf="updateUserForm.controls['lastname'] && updateUserForm.controls['lastname'].errors?.['required']"
+                class="error-message"></app-ui-message>
+
+                <label for="email">E-mail</label>
+              <div class="input-group input-group-icon">
+                <input type="text" placeholder="E-mail" name="email" ngModel [required]="true" />
+                <div class="input-icon"><i class="fa fa-user"></i></div>
+              </div>
+              <app-ui-message [message]="'Mot de passe est requis'"
+                *ngIf="updateUserForm.controls['email'] && updateUserForm.controls['email'].errors?.['required']"
+                class="error-message"></app-ui-message>
+
+                <label for="user_type">Type d'utilisateur</label>
+              <div class="input-group input-group-icon">
+                <input type="text" placeholder="Type d'utilisateur" name="user_type" ngModel [required]="true" />
+                <div class="input-icon"><i class="fa fa-user"></i></div>
+              </div>
+              <app-ui-message [message]="'Mot de passe est requis'"
+                *ngIf="updateUserForm.controls['user_type'] && updateUserForm.controls['user_type'].errors?.['required']"
+                class="error-message"></app-ui-message>
+
           </div>
   
           <div class="row">

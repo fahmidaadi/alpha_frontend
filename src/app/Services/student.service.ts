@@ -62,7 +62,6 @@ export class StudentService {
                       return this.departmentService.getDepartmentId(training.departement_id!.toString()).pipe(
                         map(department => {
                           training.department = department;
-                          console.log(student)
                           return student;
                         })
                       );
@@ -162,7 +161,6 @@ export class StudentService {
                         return this.departmentService.getDepartmentId(training.departement_id!.toString()).pipe(
                           map(department => {
                             training.department = department;
-                            console.log(student);
                             return student;
                           })
                         );
@@ -205,10 +203,7 @@ export class StudentService {
       Authorization: `Bearer ${accessToken}`,
     });
 
-    console.log('Headers:');
-    headers.keys().forEach((header) => {
-      console.log(`${header}: ${headers.get(header)}`);
-    });
+  
 
     return headers;
   }

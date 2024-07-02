@@ -100,8 +100,12 @@ export class SideBarComponent {
 
   goToUserList(){
     this.router.navigate(['/user-list']);
+  }
+  goToUserTypeList(){
+    this.router.navigate(['/user-type-list']);
 
   }
+
 
   toggleSettingsSubMenu() {
     this.isSubMenuOpen = !this.isSubMenuOpen;

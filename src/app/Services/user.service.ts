@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, catchError, throwError } from 'rxjs';
+import { Observable, map, catchError, throwError, forkJoin, switchMap } from 'rxjs';
 import { Department } from '../Models/department';
 import { User } from '../Models/user';
+import { UserTypeService } from './user-type.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,28 @@ export class UserService {
   selectedUser: User | null = null;
   showUpdateForm: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private userTypeService : UserTypeService) { }
 
   // Get user
   getUsers(): Observable<User[]> {
     return this.http.get<{ success: boolean; message: string; data: User[] }>(`${this.apiUrl}/users`)
       .pipe(
-        map(response => response.data)
+        switchMap(response => {
+          const users = response.data;
+          // Use forkJoin to wait for all userType requests to complete
+          return forkJoin(
+            users.map(user =>
+              this.userTypeService.getUserTypeId(user.user_type.toString()).pipe(
+                map(userType => ({
+                  ...user,
+                  userType
+                }))
+              )
+            )
+          );
+        })
       );
   }
-
   // Add user
   addUser(user: User): Observable<User> {
     const headers = this.createAuthorizationHeaders();
@@ -86,10 +99,7 @@ export class UserService {
       Authorization: `Bearer ${accessToken}`
     });
 
-    console.log("Headers:");
-    headers.keys().forEach(header => {
-      console.log(`${header}: ${headers.get(header)}`);
-    });
+   
 
     return headers;
   }
